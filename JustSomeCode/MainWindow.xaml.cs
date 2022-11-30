@@ -30,6 +30,7 @@ namespace JustSomeCode
         public MainWindow()
         {
             InitializeComponent();
+            MainGrid.Visibility = Visibility.Collapsed;
             this.MaxHeight = System.Windows.SystemParameters.MaximizedPrimaryScreenHeight;
             this.MaxWidth = System.Windows.SystemParameters.MaximizedPrimaryScreenWidth;
             #if DEBUG
@@ -67,7 +68,7 @@ namespace JustSomeCode
             {
                 
                 Logo.Visibility= Visibility.Collapsed;
-                canvas.Visibility= Visibility.Visible;
+                MainGrid.Visibility= Visibility.Visible;
                 timer.Stop();
 
             }
