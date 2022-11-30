@@ -2,23 +2,23 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
                     <!--Primary Brushs-->
-                    <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#66A5Ad"/>
+                    <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#F8550E"/>
                     <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush" Color="White"/>
-                
-                    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#07575b"/>
+
+                    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#E30057"/>
                     <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="White"/>
-                
-                    <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#003B46"/>
+
+                    <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#9F09Ac"/>
                     <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush" Color="White"/>
                 
                    <!--Secondary Brushs-->
-                   <SolidColorBrush x:Key="SecondaryHueLightBrush" Color="#808080" />
+                   <SolidColorBrush x:Key="SecondaryHueLightBrush" Color="#0f0f10" />
                    <SolidColorBrush x:Key="SecondaryHueLightForegroundBrush" Color="White"/>
-                
-                  <SolidColorBrush x:Key="SecondaryHueMidBrush" Color="#626D71"/>
-                  <SolidColorBrush x:Key="SecondaryHueMidForegroundBrush" Color="White"/>
-                
-                   <SolidColorBrush x:Key="SecondaryHueDarkBrush" Color="#000000"/>
-                  <SolidColorBrush x:Key="SecondaryHueDarkForegroundBrush" Color="White"/>
+
+                   <SolidColorBrush x:Key="SecondaryHueMidBrush" Color="#232427"/>
+                   <SolidColorBrush x:Key="SecondaryHueMidForegroundBrush" Color="White"/>
+
+                   <SolidColorBrush x:Key="SecondaryHueDarkBrush" Color="#1b1c20"/>
+                   <SolidColorBrush x:Key="SecondaryHueDarkForegroundBrush" Color="White"/>
     
 </ResourceDictionary>
