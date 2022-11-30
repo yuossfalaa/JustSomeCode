@@ -5,6 +5,7 @@
     <TargetFramework>net7.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -160,6 +161,10 @@
     <None Remove="Resources\Logo\Logo_00147.png" />
     <None Remove="Resources\Logo\Logo_00148.png" />
     <None Remove="Resources\Logo\Logo_00149.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="icon.ico" />
   </ItemGroup>
 
   <ItemGroup>

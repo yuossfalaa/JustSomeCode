@@ -25,10 +25,14 @@ namespace JustSomeCode
     {
         private DispatcherTimer timer;
         private int imageIndex = 0;
-    
+        
+
         public MainWindow()
         {
             InitializeComponent();
+            #if DEBUG
+            imageIndex = 148;
+            #endif
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
