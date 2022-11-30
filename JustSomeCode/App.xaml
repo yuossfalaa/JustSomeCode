@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:JustSomeCode"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:colorpicker="clr-namespace:ColorPicker;assembly=ColorPicker"
              StartupUri="MainWindow.xaml"
              
              >
@@ -14,11 +15,40 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ColorPicker;component/Styles/DefaultColorPickerStyle.xaml" />
                 <ResourceDictionary Source="/Themes/Brushes/Brushes.xaml"/>
                 <ResourceDictionary Source="/Themes/ControlStyle/ScrollBar.xaml"/>
                 <ResourceDictionary Source="/Themes/ControlStyle/WindowStyle.xaml"/>
                 <ResourceDictionary Source="/Resources/Fonts/FontsDictionary.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+
+
+
+
+            <Style TargetType="UserControl" x:Key="DefaultColorPickerStyle">
+                <Style.Resources>
+                    <ResourceDictionary>
+                        <ResourceDictionary.MergedDictionaries>
+                            <ResourceDictionary Source="pack://application:,,,/ColorPicker;component/Styles/DarkTabControlStyle.xaml" />
+                            <ResourceDictionary Source="pack://application:,,,/ColorPicker;component/Styles/DarkTextBoxStyle.xaml" />
+                            <ResourceDictionary Source="pack://application:,,,/ColorPicker;component/Styles/DarkComboBoxStyle.xaml" />
+                            <ResourceDictionary Source="pack://application:,,,/ColorPicker;component/Styles/RoundedColorDisplayStyle.xaml"/>
+                        </ResourceDictionary.MergedDictionaries>
+                        <Style TargetType="Label">
+                            <Setter Property="Foreground" Value="White" />
+                        </Style>
+                        <Style TargetType="Grid" >
+                            <Style.Triggers>
+                                <Trigger Property="Name" Value="MainGrid">
+                                    <Setter Property="Background" Value="{StaticResource SecondaryHueDarkBrush}" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ResourceDictionary>
+                </Style.Resources>
+            </Style>
+         
+            
         </ResourceDictionary>
     </Application.Resources>
 </Application>

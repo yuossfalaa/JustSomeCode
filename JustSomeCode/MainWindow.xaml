@@ -4,7 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:JustSomeCode" 
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+        xmlns:colorpicker="clr-namespace:ColorPicker;assembly=ColorPicker"
         Title="Just Some Code"
         Height="700"
         Width="1350"
@@ -12,8 +13,9 @@
         MinHeight = "700"
         WindowStyle="None"
         AllowsTransparency="True"
-        ResizeMode="CanResizeWithGrip"
+        ResizeMode="CanMinimize"
         WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
         Background="Transparent"
         Icon="/Resources/icon.ico" Loaded="Window_Loaded">
     <Window.Triggers>
@@ -71,6 +73,8 @@
 
                 </Ellipse>
             </materialDesign:TransitioningContent>
+        
+
         </Grid>
         <materialDesign:TransitioningContent OpeningEffect="{materialDesign:TransitionEffect Kind=FadeIn, Duration=00:00:00:1.5}">
             <Grid>
@@ -124,11 +128,12 @@
                     <Button
                 Style="{StaticResource MaterialDesignIconButton}" Foreground="{StaticResource PrimaryHueLightForegroundBrush}" Width="30" Height="30" Margin="3,10,0,0">
                         <materialDesign:PackIcon Kind="Eraser" />
-                    </Button> 
-                    <Button
-                Style="{StaticResource MaterialDesignIconButton}" Foreground="{StaticResource PrimaryHueLightForegroundBrush}" Width="30" Height="30" Margin="3,10,0,0">
-                        <materialDesign:PackIcon Kind="Palette"/>
                     </Button>
+                    
+                    <Border CornerRadius="50"  Margin="3,40,0,0">
+                        <colorpicker:PortableColorPicker  ColorState="{Binding ElementName=main, Path=ColorState, Mode=TwoWay}" Style="{StaticResource DefaultColorPickerStyle}" Width="30" Height="30"  />
+                    </Border>
+                    
                 </StackPanel>
                 <StackPanel Grid.Row="2" Grid.Column="0" Width="40" Background="{x:Null}" >
                     <Button
@@ -145,6 +150,7 @@
                     <materialDesign:TransitioningContent OpeningEffect="{materialDesign:TransitionEffect Kind=FadeIn}">
                         <Canvas x:Name="canvas" Background="White"  Margin="80,40,40,40" Visibility="Collapsed"/>
                     </materialDesign:TransitioningContent>
+
                 </Grid>
 
             </Grid>

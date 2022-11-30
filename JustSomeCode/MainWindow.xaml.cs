@@ -30,6 +30,8 @@ namespace JustSomeCode
         public MainWindow()
         {
             InitializeComponent();
+            this.MaxHeight = System.Windows.SystemParameters.MaximizedPrimaryScreenHeight;
+            this.MaxWidth = System.Windows.SystemParameters.MaximizedPrimaryScreenWidth;
             #if DEBUG
             imageIndex = 148;
             #endif
