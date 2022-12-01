@@ -127,6 +127,10 @@
                         </Button>
                         <Button
                 Style="{StaticResource MaterialDesignIconButton}" Foreground="{StaticResource PrimaryHueLightForegroundBrush}" Width="30" Height="30" Margin="3,10,0,0">
+                            <materialDesign:PackIcon Kind="FormatColorFill" />
+                        </Button>       
+                        <Button
+                Style="{StaticResource MaterialDesignIconButton}" Foreground="{StaticResource PrimaryHueLightForegroundBrush}" Width="30" Height="30" Margin="3,10,0,0">
                             <materialDesign:PackIcon Kind="Eraser" />
                         </Button>
 
