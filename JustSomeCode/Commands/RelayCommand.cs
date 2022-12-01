@@ -23,7 +23,8 @@ namespace JustSomeCode.Commands
 
         public RelayCommand(Action<object> execute) : this(execute, null)
         {
-
+            _execute = execute;
+            
         }
 
         public event EventHandler CanExecuteChanged
