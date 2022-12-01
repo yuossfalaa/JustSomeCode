@@ -151,9 +151,8 @@
                     </StackPanel>
                     <Grid Grid.Column="1" Grid.Row="1" Grid.RowSpan="2">
                         <materialDesign:TransitioningContent OpeningEffect="{materialDesign:TransitionEffect Kind=FadeIn}">
-                            <Canvas x:Name="canvas" Background="White"  Margin="80,40,40,40"/>
+                            <Canvas x:Name="canvas" Background="White"  Margin="80,40,40,40" />
                         </materialDesign:TransitioningContent>
-
                     </Grid>
 
                 </Grid>

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -25,7 +26,7 @@ namespace JustSomeCode
     {
         private DispatcherTimer timer;
         private int imageIndex = 0;
-        
+
 
         public MainWindow()
         {
@@ -33,6 +34,7 @@ namespace JustSomeCode
             MainGrid.Visibility = Visibility.Collapsed;
             this.MaxHeight = System.Windows.SystemParameters.MaximizedPrimaryScreenHeight;
             this.MaxWidth = System.Windows.SystemParameters.MaximizedPrimaryScreenWidth;
+            //Cancel Animation in Debug mode
             #if DEBUG
             imageIndex = 148;
             #endif
@@ -44,6 +46,7 @@ namespace JustSomeCode
             timer.Tick += TimerTick;
             timer.Start();
         }
+        //Starting Animation 
         private void TimerTick(object sender, EventArgs e)
         {
             if (imageIndex <= 9)
@@ -66,9 +69,9 @@ namespace JustSomeCode
             }
             if (imageIndex == 149)
             {
-                
-                Logo.Visibility= Visibility.Collapsed;
-                MainGrid.Visibility= Visibility.Visible;
+
+                Logo.Visibility = Visibility.Collapsed;
+                MainGrid.Visibility = Visibility.Visible;
                 timer.Stop();
 
             }
@@ -98,5 +101,6 @@ namespace JustSomeCode
         {
             WindowState = WindowState.Minimized;
         }
+
     }
 }

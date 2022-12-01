@@ -329,4 +329,8 @@
     <Resource Include="Resources\Logo\Logo_00149.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ViewModels\" />
+  </ItemGroup>
+
 </Project>
