@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:JustSomeCode" 
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
-        xmlns:colorpicker="clr-namespace:ColorPicker;assembly=ColorPicker"
+        xmlns:colorpicker="clr-namespace:ColorPicker;assembly=ColorPicker" xmlns:ViewModels="clr-namespace:JustSomeCode.ViewModels"
         Title="Just Some Code"
         Height="700"
         Width="1350"
@@ -18,6 +18,9 @@
         WindowState="Maximized"
         Background="Transparent"
         Icon="/Resources/icon.ico" Loaded="Window_Loaded">
+    <Window.DataContext>
+        <ViewModels:MainViewModel/>
+    </Window.DataContext>
     <Window.Triggers>
         <EventTrigger RoutedEvent="Loaded">
             <BeginStoryboard>
@@ -30,6 +33,7 @@
         </EventTrigger>
     </Window.Triggers>
     <Grid Background="{StaticResource SecondaryHueDarkBrush}">
+        <Image x:Name="Logo"></Image>
         <Grid x:Name="MainGrid">
             <Grid>
                 <Grid.RowDefinitions>
@@ -76,7 +80,12 @@
                 </materialDesign:TransitioningContent>
 
             </Grid>
-            <materialDesign:TransitioningContent OpeningEffect="{materialDesign:TransitionEffect Kind=FadeIn, Duration=00:00:00:1.5}">
+            
+            <materialDesign:TransitioningContent>
+                <materialDesign:TransitioningContent.OpeningEffects>
+                    <materialDesign:TransitionEffect Kind="FadeIn" Duration="00:00:00:1.5"/>
+                </materialDesign:TransitioningContent.OpeningEffects>
+
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -105,32 +114,52 @@
                         </Button>
                     </StackPanel>
                     <StackPanel Grid.Row="1" Grid.Column="0" Width="40" Background="{x:Null}" >
+                  
+                        <materialDesign:PopupBox
+                                Style="{StaticResource MaterialDesignMultiFloatingActionLightPopupBox}"
+                                Background="{x:Null}"
+                                BorderBrush="{x:Null}"
+                                Foreground="{StaticResource PrimaryHueLightForegroundBrush}"
+                                BorderThickness="0"
+                                PlacementMode="TopAndAlignLeftEdges"
+                                ToolTipService.Placement="Top"
+                                ToolTip="Choose An algorithm"
+                                Width="30" Height="30" Margin="6,50,0,0"
+                                >
+                            <materialDesign:PopupBox.ToggleContent>
+                                <materialDesign:PackIcon Kind="ChartTimelineVariant" Width="24" Height="24"/>
+                            </materialDesign:PopupBox.ToggleContent>
+                            <StackPanel Orientation="Horizontal" >
+                                <Button
+                                    ToolTip="DDA Algorithm"
+                                    Content="DDA" />
+                                <Button
+                                    ToolTip="Bresenham Algorithm"
+                                    Content="BA" />
+                            </StackPanel>
+                        </materialDesign:PopupBox>
                         <Button
-                Style="{StaticResource MaterialDesignIconButton}" Foreground="{StaticResource PrimaryHueLightForegroundBrush}" Width="30" Height="30" Margin="3,50,0,0">
-                            <materialDesign:PackIcon Kind="ChartTimelineVariant" />
-                        </Button>
-                        <Button
-                Style="{StaticResource MaterialDesignIconButton}" Foreground="{StaticResource PrimaryHueLightForegroundBrush}" Width="30" Height="30" Margin="3,10,0,0">
+                            Style="{StaticResource MaterialDesignIconButton}" Foreground="{StaticResource PrimaryHueLightForegroundBrush}" Width="30" Height="30" Margin="3,10,0,0">
                             <materialDesign:PackIcon Kind="VectorCircleVariant" />
                         </Button>
                         <Button
-                Style="{StaticResource MaterialDesignIconButton}" Foreground="{StaticResource PrimaryHueLightForegroundBrush}" Width="30" Height="30" Margin="3,10,0,0">
+                            Style="{StaticResource MaterialDesignIconButton}" Foreground="{StaticResource PrimaryHueLightForegroundBrush}" Width="30" Height="30" Margin="3,10,0,0">
                             <materialDesign:PackIcon Kind="EllipseOutline" />
                         </Button>
                         <Button
-                Style="{StaticResource MaterialDesignIconButton}" Foreground="{StaticResource PrimaryHueLightForegroundBrush}" Width="30" Height="30" Margin="3,10,0,0">
+                            Style="{StaticResource MaterialDesignIconButton}" Foreground="{StaticResource PrimaryHueLightForegroundBrush}" Width="30" Height="30" Margin="3,10,0,0">
                             <materialDesign:PackIcon Kind="VectorRectangle" />
                         </Button>
                         <Button
-                Style="{StaticResource MaterialDesignIconButton}" Foreground="{StaticResource PrimaryHueLightForegroundBrush}" Width="30" Height="30" Margin="3,10,0,0">
+                            Style="{StaticResource MaterialDesignIconButton}" Foreground="{StaticResource PrimaryHueLightForegroundBrush}" Width="30" Height="30" Margin="3,10,0,0">
                             <materialDesign:PackIcon Kind="BrushOutline" />
                         </Button>
                         <Button
-                Style="{StaticResource MaterialDesignIconButton}" Foreground="{StaticResource PrimaryHueLightForegroundBrush}" Width="30" Height="30" Margin="3,10,0,0">
+                            Style="{StaticResource MaterialDesignIconButton}" Foreground="{StaticResource PrimaryHueLightForegroundBrush}" Width="30" Height="30" Margin="3,10,0,0">
                             <materialDesign:PackIcon Kind="FormatColorFill" />
-                        </Button>       
+                        </Button>
                         <Button
-                Style="{StaticResource MaterialDesignIconButton}" Foreground="{StaticResource PrimaryHueLightForegroundBrush}" Width="30" Height="30" Margin="3,10,0,0">
+                            Style="{StaticResource MaterialDesignIconButton}" Foreground="{StaticResource PrimaryHueLightForegroundBrush}" Width="30" Height="30" Margin="3,10,0,0">
                             <materialDesign:PackIcon Kind="Eraser" />
                         </Button>
 
@@ -141,11 +170,11 @@
                     </StackPanel>
                     <StackPanel Grid.Row="2" Grid.Column="0" Width="40" Background="{x:Null}" >
                         <Button
-                Style="{StaticResource MaterialDesignIconButton}" Foreground="{StaticResource PrimaryHueLightForegroundBrush}" Width="30" Height="30" Margin="3,10,0,0">
+                            Style="{StaticResource MaterialDesignIconButton}" Foreground="{StaticResource PrimaryHueLightForegroundBrush}" Width="30" Height="30" Margin="3,10,0,0">
                             <materialDesign:PackIcon Kind="ContentSaveOutline" />
                         </Button>
                         <Button
-                Style="{StaticResource MaterialDesignIconButton}" Foreground="{StaticResource PrimaryHueLightForegroundBrush}" Width="30" Height="30" Margin="3,10,0,0">
+                            Style="{StaticResource MaterialDesignIconButton}" Foreground="{StaticResource PrimaryHueLightForegroundBrush}" Width="30" Height="30" Margin="3,10,0,0">
                             <materialDesign:PackIcon Kind="NewBox" />
                         </Button>
                     </StackPanel>
@@ -158,6 +187,6 @@
                 </Grid>
             </materialDesign:TransitioningContent>
         </Grid>
-        <Image x:Name="Logo"></Image>
+        
     </Grid>
 </Window>

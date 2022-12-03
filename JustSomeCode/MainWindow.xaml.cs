@@ -25,6 +25,7 @@ namespace JustSomeCode
             #if DEBUG
             imageIndex = 148;
             #endif
+            
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
