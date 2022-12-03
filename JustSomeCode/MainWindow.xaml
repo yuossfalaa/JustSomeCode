@@ -1,11 +1,13 @@
 ﻿<Window x:Class="JustSomeCode.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:JustSomeCode" 
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
-        xmlns:colorpicker="clr-namespace:ColorPicker;assembly=ColorPicker" xmlns:ViewModels="clr-namespace:JustSomeCode.ViewModels"
+        xmlns:colorpicker="clr-namespace:ColorPicker;assembly=ColorPicker" 
+        xmlns:ViewModels="clr-namespace:JustSomeCode.ViewModels"  
         Title="Just Some Code"
         Height="700"
         Width="1350"
@@ -17,7 +19,7 @@
         WindowStartupLocation="CenterScreen"
         WindowState="Maximized"
         Background="Transparent"
-        Icon="/Resources/icon.ico" Loaded="Window_Loaded">
+        Icon="/Resources/icon.ico" Loaded="Window_Loaded" UseLayoutRounding="True">
     <Window.DataContext>
         <ViewModels:MainViewModel/>
     </Window.DataContext>
@@ -59,7 +61,7 @@
                     <Ellipse Grid.Column="0" 
                 Width="160"
                 Height="160"
-                Fill="{StaticResource PrimaryHueLightBrush}" Margin="-65,600,68,-60" 
+                Fill="{StaticResource PrimaryHueLightBrush}" Margin="-65,0,0,-53" 
                 Grid.RowSpan="2" 
                 VerticalAlignment="Bottom" HorizontalAlignment="Left">
                         <Ellipse.Effect>
@@ -96,6 +98,7 @@
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
+                    
                     <StackPanel Grid.Row="0" Grid.Column="1"  
                     Height="30" Background="{x:Null}" 
                     Orientation="Horizontal" 
@@ -164,7 +167,7 @@
                         </Button>
 
                         <Border CornerRadius="50"  Margin="3,40,0,0">
-                            <colorpicker:PortableColorPicker  ColorState="{Binding ElementName=main, Path=ColorState, Mode=TwoWay}" Style="{StaticResource DefaultColorPickerStyle}" Width="30" Height="30"  />
+                            <colorpicker:PortableColorPicker Cursor="Hand" ColorState="{Binding ElementName=main, Path=ColorState, Mode=TwoWay}" Style="{StaticResource DefaultColorPickerStyle}" Width="30" Height="30"  />
                         </Border>
 
                     </StackPanel>
@@ -180,7 +183,13 @@
                     </StackPanel>
                     <Grid Grid.Column="1" Grid.Row="1" Grid.RowSpan="2">
                         <materialDesign:TransitioningContent OpeningEffect="{materialDesign:TransitionEffect Kind=FadeIn}">
-                            <Canvas x:Name="canvas" Background="White"  Margin="80,40,40,40" />
+                            <Canvas x:Name="canvas" Background="White"  Margin="80,40,40,40" Cursor="Resources/MouseIcon.cur"  >
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="PreviewMouseDown">
+                                        <i:InvokeCommandAction Command="{Binding MouseEnter}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Canvas>
                         </materialDesign:TransitioningContent>
                     </Grid>
 

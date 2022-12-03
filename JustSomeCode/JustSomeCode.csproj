@@ -5,7 +5,7 @@
     <TargetFramework>net7.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
-    <ApplicationIcon>icon.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -161,16 +161,14 @@
     <None Remove="Resources\Logo\Logo_00147.png" />
     <None Remove="Resources\Logo\Logo_00148.png" />
     <None Remove="Resources\Logo\Logo_00149.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="icon.ico" />
+    <None Remove="Resources\MouseIcon.cur" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="MaterialDesignColors" Version="2.0.9" />
     <PackageReference Include="MaterialDesignThemes" Version="4.6.1" />
     <PackageReference Include="MaterialDesignThemes.MahApps" Version="0.2.5" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
     <PackageReference Include="PixiEditor.ColorPicker" Version="3.3.1" />
   </ItemGroup>
 
@@ -327,6 +325,7 @@
     <Resource Include="Resources\Logo\Logo_00147.png" />
     <Resource Include="Resources\Logo\Logo_00148.png" />
     <Resource Include="Resources\Logo\Logo_00149.png" />
+    <Resource Include="Resources\MouseIcon.cur" />
   </ItemGroup>
 
   <ItemGroup>
