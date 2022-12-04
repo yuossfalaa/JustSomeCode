@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JustSomeCode.Models.Shapes;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -9,17 +10,7 @@ namespace JustSomeCode.Services.DrawingServices
 {
     public class RectanglePainter : CommonDrawingOperations, IDraw
     {
-        public List<Point> Draw(Point Start)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Point> Draw(Point Start, Point End)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Point> Draw(Point Start, Size size)
+        public PointList Draw(Point Start, Point End)
         {
             throw new NotImplementedException();
         }
