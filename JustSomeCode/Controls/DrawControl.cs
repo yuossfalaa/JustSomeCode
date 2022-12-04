@@ -5,38 +5,30 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-
 using Point = System.Drawing.Point;
 
 namespace JustSomeCode.Controls
 {
-    /// <summary>
-    /// Control to draw Scene object
-    /// </summary>
+    //Made By Sergey Voyteshonok
+    //https://github.com/SVoyt
+    //Edited By Youssef Alaa 
+    //https://github.com/yuossfalaa
+
+    // Control to draw Scene object
     public class DrawControl:Control
     {
         #region dependency properties
-
-        /// <summary>
-        /// Dependency property. Scene for drawing control
-        /// </summary>
+        // Dependency property. Scene for drawing control
         public static readonly DependencyProperty SceneProperty =
             DependencyProperty.Register("Scene", typeof (Scene), typeof (DrawControl),
                 new PropertyMetadata(new PropertyChangedCallback(SceneChanged)));
-
-        /// <summary>
-        /// Dependency property. Actual size of drawing
-        /// </summary>
+        // Dependency property. Actual size of drawing
         public static readonly DependencyProperty ActualSizeProperty =
             DependencyProperty.Register("ActualSize", typeof (Size), typeof (DrawControl));
-
         #endregion
 
         #region public properties
-
-        /// <summary>
-        /// Scene for drawing control
-        /// </summary>
+        // Scene for drawing control
         public Scene Scene
         {
             get
@@ -48,10 +40,7 @@ namespace JustSomeCode.Controls
                 SetValue(SceneProperty, value);
             }
         }
-
-        /// <summary>
-        /// Actual size of drawing
-        /// </summary>
+        // Actual size of drawing
         public Size ActualSize
         {
             get
@@ -72,7 +61,6 @@ namespace JustSomeCode.Controls
                 ((Scene)e.NewValue).SceneChanged += ((DrawControl)sender).InvalidateScene;
             ((DrawControl)sender).InvalidateVisual();
         }
-
         /// <summary>
         /// Invalidate scene
         /// </summary>
