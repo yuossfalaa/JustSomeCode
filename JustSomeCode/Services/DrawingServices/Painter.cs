@@ -4,22 +4,21 @@ using System.Drawing;
 
 namespace JustSomeCode.Services.DrawingServices
 {
-    public class Painter : IDraw
+    public class Painter :CommonDrawingOperations, IDraw
     {
-        public List<Point> Draw(Point point, System.Windows.Media.Color color)
+        public List<Point> Draw(Point Start)
         {
             throw new NotImplementedException();
         }
 
-        public List<Point> Draw(Point point, double diameter, System.Windows.Media.Color color)
+        public List<Point> Draw(Point Start, Point End)
         {
             throw new NotImplementedException();
         }
 
-        public List<Point> Draw(Point point, Size size, System.Windows.Media.Color color)
+        public List<Point> Draw(Point Start, Size size)
         {
             throw new NotImplementedException();
         }
-
     }
 }
