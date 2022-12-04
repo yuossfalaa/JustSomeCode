@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace INStore.Models
+namespace JustSomeCode.Models
 {
     public class ObeservableObject : INotifyPropertyChanged
     {
