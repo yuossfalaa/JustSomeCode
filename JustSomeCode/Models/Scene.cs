@@ -7,19 +7,18 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using Brush = System.Drawing.Brush;
-using Color = System.Drawing.Color;
+using Color = System.Windows.Media.Color;
+using Colors = System.Drawing.Color;
 using Pen = System.Drawing.Pen;
+
 using PixelFormat = System.Drawing.Imaging.PixelFormat;
 using Point = System.Drawing.Point;
 using JustSomeCode.Services.DrawingServices;
+using System.Windows.Media;
 
 namespace JustSomeCode.Models
 {
-
-    /// <summary>
-    /// Scene manage layer logic. 
-    /// Inherited from IDisposable, because has Pen and Brush (GDI unmanaged objects) and layers inside has unmanaged resources
-    /// </summary>
+    // Scene manage layer logic. 
     public class Scene:IDisposable
     {
         #region private fields
@@ -34,17 +33,6 @@ namespace JustSomeCode.Models
         private Color _color;
 
         #endregion
-
-        private Layer SelectedLayer
-        {
-            get
-            {
-                if (SelectedLayerIndex == -1)
-                    return null;
-
-                return Layers[SelectedLayerIndex];
-            }
-        }
 
         #region public properties
 
@@ -92,9 +80,9 @@ namespace JustSomeCode.Models
             {
                 if (HasNoLayers)
                     return;
-                if (value<0)
+                if (value < 0)
                     throw new ArgumentException("SelectedLayerIndex must be greater then 0");
-                if (value>= Layers.Count)
+                if (value >= Layers.Count)
                     throw new ArgumentOutOfRangeException("SelectedLayerIndex must be < layers array count");
 
                 _selectedLayerIndex = value;
@@ -125,6 +113,19 @@ namespace JustSomeCode.Models
 
         #endregion
 
+        private Layer SelectedLayer
+        {
+            get
+            {
+                if (SelectedLayerIndex == -1)
+                    return null;
+
+                return Layers[SelectedLayerIndex];
+            }
+        }
+
+        
+
         #region public events
 
         /// <summary>
@@ -147,29 +148,12 @@ namespace JustSomeCode.Models
             _points = new List<Point>();
             _selectedLayerIndex = -1;
 
-            Layers = new List<Layer>();        
-            Color = Color.Black;
+            Layers = new List<Layer>();
+            Color = (Color)System.Windows.Media.ColorConverter.ConvertFromString("Black");
             Thickness = 5;     
         }
 
         #region public methods
-
-        /// <summary>
-        /// Save current scene to file
-        /// </summary>
-        /// <param name="filename">Filename</param>
-        public void Save(string filename)
-        {
-            var lst = Layers.Select(layer => new LayerBundle()
-            {
-                Bitmap = layer.Bitmap, 
-                Position = layer.Position, 
-                Size = layer.Size,
-                IsVisible = layer.IsVisible
-            }).ToList();
-            var dcs = new DataContractSerializer(typeof(List<LayerBundle>));
-            dcs.WriteObject(File.Create(filename), lst);
-        }
 
         /// <summary>
         /// Export scene to PNG
@@ -183,21 +167,6 @@ namespace JustSomeCode.Models
         }
 
         /// <summary>
-        /// Load scene from file
-        /// </summary>
-        /// <param name="filename">Filename</param>
-        /// <returns>Loaded scene</returns>
-        public static Scene Load(string filename)
-        {
-            var dcs = new DataContractSerializer(typeof(List<LayerBundle>));
-            var layerBundles = (List<LayerBundle>)dcs.ReadObject(File.OpenRead(filename));
-            var scene = new Scene();
-            scene.LayersFromBundle(layerBundles);
-          
-            return scene;
-        }
-
-        /// <summary>
         /// Draw scene to bitmap
         /// </summary>
         /// <param name="sceneWidth">Width of bitmap</param>
@@ -208,7 +177,7 @@ namespace JustSomeCode.Models
             var bitmap = new Bitmap(sceneWidth, sceneHeight, PixelFormat.Format32bppArgb);
             using (var gr = Graphics.FromImage(bitmap))
             {
-                gr.Clear(Color.White);
+                gr.Clear(Colors.White);
                 foreach (var layer in Layers)
                 {
                     if (layer.IsVisible)
@@ -495,7 +464,7 @@ namespace JustSomeCode.Models
             if (_brush!=null)
                 _brush.Dispose();
 
-            _brush = new SolidBrush(_color);
+            _brush = new SolidBrush(ColorExtension.ToDrawingColor(_color));
             _pen = new Pen(_brush,Thickness)
             {
                 StartCap = LineCap.Round,
@@ -503,7 +472,7 @@ namespace JustSomeCode.Models
                 LineJoin = LineJoin.Round            
             };
         }
-        #endregion 
-
+        #endregion
+       
     }
 }

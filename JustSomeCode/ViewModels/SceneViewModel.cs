@@ -73,15 +73,13 @@ namespace JustSomeCode.ViewModels
         }
 
 
-        /// <summary>
-        /// Gets or sets color for scene brush
-        /// </summary>
+        //Gets or sets color for scene brush
         public Color Color
         {
-            get { return Color.FromRgb(Scene.Color.R, Scene.Color.G, Scene.Color.B); ; }
+            get { return _scene.Color; }
             set
             {
-                Scene.Color = System.Drawing.Color.FromArgb(value.R, value.G, value.B);
+                Scene.Color = value;
                 RaisePropertyChanged("Color");
                 RaisePropertyChanged("ColorString");
             }
@@ -152,7 +150,6 @@ namespace JustSomeCode.ViewModels
         {
             Layers = new ObservableCollection<LayerViewModel>();
             Scene = scene;
-            Color = Color.FromRgb(Scene.Color.R, Scene.Color.G, Scene.Color.B);
             Thickness = Scene.Thickness;
           
             AddLayerCommand = new RelayCommand(param => Scene.AddNewLayer() );
