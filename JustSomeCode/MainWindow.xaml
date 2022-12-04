@@ -187,7 +187,7 @@
                         <Border CornerRadius="50"  Margin="3,40,0,0">
                             <colorpicker:PortableColorPicker 
                                 Cursor="Hand" 
-                                SelectedColor="{Binding Color,Mode=TwoWay}" 
+                                SelectedColor="{Binding SceneViewModel.Color,Mode=TwoWay}" 
                                 Style="{StaticResource DefaultColorPickerStyle}" 
                                 Width="30" Height="30"  />
                         </Border>
@@ -206,7 +206,7 @@
                     <Grid Grid.Column="1" Grid.Row="1" Grid.RowSpan="2">
                         <materialDesign:TransitioningContent 
                             OpeningEffect="{materialDesign:TransitionEffect Kind=FadeIn}">
-                            <controls:DrawControl Margin="80,40,40,40" Cursor="Resources/MouseIcon.cur" ActualSize="{Binding Path=VisibleSize,Mode=OneWayToSource}" Scene="{ Binding Path=SceneViewModel.Scene}"/>
+                            <controls:DrawControl Margin="80,40,40,40"  Cursor="Resources/MouseIcon.cur" ActualSize="{Binding Path=VisibleSize,Mode=OneWayToSource}" Scene="{ Binding Path=SceneViewModel.Scene}"/>
                         </materialDesign:TransitioningContent>
                     </Grid>
 
