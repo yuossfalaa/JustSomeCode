@@ -134,14 +134,15 @@
                                 PlacementMode="TopAndAlignLeftEdges"
                                 ToolTipService.Placement="Top"
                                 ToolTip="Choose An algorithm"
-                                Width="30" Height="30" Margin="6,50,0,0"
+                                Width="30" Height="30" Margin="11,40,0,0"
                                 >
                             <materialDesign:PopupBox.ToggleContent>
                                 <materialDesign:PackIcon Kind="ChartTimelineVariant" Width="24" Height="24"/>
                             </materialDesign:PopupBox.ToggleContent>
                             <StackPanel Orientation="Horizontal" >
                                 <Button
-                                    ToolTip="DDA Algorithm"
+                                    ToolTip="DDA Algorithm" 
+                                    Command="{Binding Path=SceneViewModel.DDALinePainting}"
                                     Content="DDA" />
                                 <Button
                                     ToolTip="Bresenham Algorithm"
@@ -151,46 +152,54 @@
                         <Button
                             Style="{StaticResource MaterialDesignIconButton}" 
                             Foreground="{StaticResource PrimaryHueLightForegroundBrush}" 
-                            Width="30" Height="30" Margin="3,10,0,0">
+                            Width="30" Height="30" Margin="8,10,0,0">
                             <materialDesign:PackIcon Kind="VectorCircleVariant" />
                         </Button>
                         <Button
                             Style="{StaticResource MaterialDesignIconButton}" 
                             Foreground="{StaticResource PrimaryHueLightForegroundBrush}" 
-                            Width="30" Height="30" Margin="3,10,0,0">
+                            Width="30" Height="30" Margin="8,10,0,0">
                             <materialDesign:PackIcon Kind="EllipseOutline" />
                         </Button>
                         <Button
                             Style="{StaticResource MaterialDesignIconButton}" 
                             Foreground="{StaticResource PrimaryHueLightForegroundBrush}" 
-                            Width="30" Height="30" Margin="3,10,0,0">
+                            Width="30" Height="30" Margin="8,10,0,0">
                             <materialDesign:PackIcon Kind="VectorRectangle" />
                         </Button>
                         <Button
                             Style="{StaticResource MaterialDesignIconButton}" 
                             Foreground="{StaticResource PrimaryHueLightForegroundBrush}" 
-                            Width="30" Height="30" Margin="3,10,0,0">
+                            Width="30" Height="30" Margin="8,10,0,0">
                             <materialDesign:PackIcon Kind="BrushOutline" />
                         </Button>
                         <Button
                             Style="{StaticResource MaterialDesignIconButton}" 
                             Foreground="{StaticResource PrimaryHueLightForegroundBrush}" 
-                            Width="30" Height="30" Margin="3,10,0,0">
+                            Width="30" Height="30" Margin="8,10,0,0">
                             <materialDesign:PackIcon Kind="Eraser" />
                         </Button>
                         <Button
                             Style="{StaticResource MaterialDesignIconButton}" 
                             Foreground="{StaticResource PrimaryHueLightForegroundBrush}" 
-                            Width="30" Height="30" Margin="3,10,0,0">
+                            Width="30" Height="30" Margin="8,10,0,0">
                             <materialDesign:PackIcon Kind="CursorDefaultOutline" />
                         </Button>
-                        <Border CornerRadius="50"  Margin="3,40,0,0">
+                        <Slider Margin="15,40,0,0" Height="110" 
+                                Foreground="{StaticResource PrimaryHueLightForegroundBrush}"
+                                Orientation="Vertical"
+                                Minimum="1"
+                                Maximum="100"
+                                Value="{Binding SceneViewModel.Thickness}"
+                                IsDirectionReversed="True" />
+                        <Border CornerRadius="50"  Margin="10,40,0,0">
                             <colorpicker:PortableColorPicker 
                                 Cursor="Hand" 
                                 SelectedColor="{Binding SceneViewModel.Color,Mode=TwoWay}" 
                                 Style="{StaticResource DefaultColorPickerStyle}" 
                                 Width="30" Height="30"  />
                         </Border>
+                        
 
                     </StackPanel>
                     <StackPanel Grid.Row="2" Grid.Column="0" Width="40" Background="{x:Null}" >
