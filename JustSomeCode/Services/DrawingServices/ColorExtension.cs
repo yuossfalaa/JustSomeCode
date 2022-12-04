@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.CompilerServices;
 
 namespace JustSomeCode.Services.DrawingServices
 {
     public static class ColorExtension
     {
-        /// <summary>
-        /// Convert Media Color (WPF) to Drawing Color (WinForm)
-        /// </summary>
+        /// Convert Media Color to Drawing Color 
         /// <param name="mediaColor"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -20,9 +13,7 @@ namespace JustSomeCode.Services.DrawingServices
             return System.Drawing.Color.FromArgb(mediaColor.A, mediaColor.R, mediaColor.G, mediaColor.B);
         }
 
-        /// <summary>
-        /// Convert Drawing Color (WPF) to Media Color (WinForm)
-        /// </summary>
+        /// Convert Drawing Color to Media Color 
         /// <param name="drawingColor"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

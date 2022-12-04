@@ -1,27 +1,30 @@
-﻿using System;
+﻿using JustSomeCode.Models;
+using JustSomeCode.Models.Shapes;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JustSomeCode.Services.DrawingServices
 {
     public class DDALinePainter : CommonDrawingOperations, IDraw
     {
-        public List<Point> Draw(Point Start)
+        public PointList Draw(Point Start, Point End)
         {
-            throw new NotImplementedException();
-        }
-
-        public List<Point> Draw(Point Start, Point End)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Point> Draw(Point Start, Size size)
-        {
-            throw new NotImplementedException();
+            List<Point> points = new List<Point>();
+            DDA_Line dda_Line= new DDA_Line();
+            int dx = End.X - Start.X , dy = End.Y - Start.Y ;
+            int Distance = Math.Max(Math.Abs(dx), Math.Abs(dy));
+            float dxdt = dx / Distance,dydt=dy/Distance;
+            float x = Start.X,y = Start.Y;
+            while (Distance!=0)
+            {
+                points.Add(new Point((int)x,(int)y));
+                x += dxdt;
+                y += dydt;
+                Distance--;
+            }
+            dda_Line.Points = points;
+            return dda_Line;
         }
     }
 }
