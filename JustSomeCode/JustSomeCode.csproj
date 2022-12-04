@@ -9,6 +9,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Behaviours\**" />
+    <Compile Remove="Controles\**" />
+    <EmbeddedResource Remove="Behaviours\**" />
+    <EmbeddedResource Remove="Controles\**" />
+    <None Remove="Behaviours\**" />
+    <None Remove="Controles\**" />
+    <Page Remove="Behaviours\**" />
+    <Page Remove="Controles\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Resources\BackGround.png" />
     <None Remove="Resources\icon.ico" />
     <None Remove="Resources\Logo\Logo_00000.png" />
@@ -170,6 +181,7 @@
     <PackageReference Include="MaterialDesignThemes.MahApps" Version="0.2.5" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
     <PackageReference Include="PixiEditor.ColorPicker" Version="3.3.1" />
+    <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>

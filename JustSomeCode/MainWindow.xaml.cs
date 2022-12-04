@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
@@ -25,7 +26,7 @@ namespace JustSomeCode
             #if DEBUG
             imageIndex = 148;
             #endif
-            
+
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

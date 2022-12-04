@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:JustSomeCode" 
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
         xmlns:colorpicker="clr-namespace:ColorPicker;assembly=ColorPicker" 
-        xmlns:ViewModels="clr-namespace:JustSomeCode.ViewModels"  
+        xmlns:ViewModels="clr-namespace:JustSomeCode.ViewModels" xmlns:controls="clr-namespace:JustSomeCode.Controls"
         Title="Just Some Code"
         Height="700"
         Width="1350"
@@ -104,19 +104,26 @@
                     Orientation="Horizontal" 
                     FlowDirection="RightToLeft">
                         <Button
-                Style="{StaticResource MaterialDesignIconButton}" Foreground="{StaticResource PrimaryHueLightForegroundBrush}" Width="30" Height="30" Margin="10,0,0,0" Click="Close">
+                            Style="{StaticResource MaterialDesignIconButton}" 
+                            Foreground="{StaticResource PrimaryHueLightForegroundBrush}" 
+                            Width="30" Height="30" Margin="10,0,0,0" Click="Close">
                             <materialDesign:PackIcon Kind="CloseCircleOutline" />
                         </Button>
                         <Button
-                Style="{StaticResource MaterialDesignIconButton}" Foreground="{StaticResource PrimaryHueLightForegroundBrush}" Width="30" Height="30" Margin="10,0,0,0" Click="Maximize">
+                            Style="{StaticResource MaterialDesignIconButton}" 
+                            Foreground="{StaticResource PrimaryHueLightForegroundBrush}" 
+                            Width="30" Height="30" Margin="10,0,0,0" Click="Maximize">
                             <materialDesign:PackIcon Kind="WindowMaximize" />
                         </Button>
                         <Button
-                Style="{StaticResource MaterialDesignIconButton}" Foreground="{StaticResource PrimaryHueLightForegroundBrush}" Width="30" Height="30" Margin="10,0,0,0" Click="Minimize">
+                            Style="{StaticResource MaterialDesignIconButton}" 
+                            Foreground="{StaticResource PrimaryHueLightForegroundBrush}" 
+                            Width="30" Height="30" Margin="10,0,0,0" Click="Minimize">
                             <materialDesign:PackIcon Kind="WindowMinimize" />
                         </Button>
                     </StackPanel>
-                    <StackPanel Grid.Row="1" Grid.Column="0" Width="40" Background="{x:Null}" >
+                    <StackPanel Grid.Row="1" Grid.Column="0" 
+                                Width="40" Background="{x:Null}" >
                   
                         <materialDesign:PopupBox
                                 Style="{StaticResource MaterialDesignMultiFloatingActionLightPopupBox}"
@@ -142,32 +149,47 @@
                             </StackPanel>
                         </materialDesign:PopupBox>
                         <Button
-                            Style="{StaticResource MaterialDesignIconButton}" Foreground="{StaticResource PrimaryHueLightForegroundBrush}" Width="30" Height="30" Margin="3,10,0,0">
+                            Style="{StaticResource MaterialDesignIconButton}" 
+                            Foreground="{StaticResource PrimaryHueLightForegroundBrush}" 
+                            Width="30" Height="30" Margin="3,10,0,0">
                             <materialDesign:PackIcon Kind="VectorCircleVariant" />
                         </Button>
                         <Button
-                            Style="{StaticResource MaterialDesignIconButton}" Foreground="{StaticResource PrimaryHueLightForegroundBrush}" Width="30" Height="30" Margin="3,10,0,0">
+                            Style="{StaticResource MaterialDesignIconButton}" 
+                            Foreground="{StaticResource PrimaryHueLightForegroundBrush}" 
+                            Width="30" Height="30" Margin="3,10,0,0">
                             <materialDesign:PackIcon Kind="EllipseOutline" />
                         </Button>
                         <Button
-                            Style="{StaticResource MaterialDesignIconButton}" Foreground="{StaticResource PrimaryHueLightForegroundBrush}" Width="30" Height="30" Margin="3,10,0,0">
+                            Style="{StaticResource MaterialDesignIconButton}" 
+                            Foreground="{StaticResource PrimaryHueLightForegroundBrush}" 
+                            Width="30" Height="30" Margin="3,10,0,0">
                             <materialDesign:PackIcon Kind="VectorRectangle" />
                         </Button>
                         <Button
-                            Style="{StaticResource MaterialDesignIconButton}" Foreground="{StaticResource PrimaryHueLightForegroundBrush}" Width="30" Height="30" Margin="3,10,0,0">
+                            Style="{StaticResource MaterialDesignIconButton}" 
+                            Foreground="{StaticResource PrimaryHueLightForegroundBrush}" 
+                            Width="30" Height="30" Margin="3,10,0,0">
                             <materialDesign:PackIcon Kind="BrushOutline" />
                         </Button>
                         <Button
-                            Style="{StaticResource MaterialDesignIconButton}" Foreground="{StaticResource PrimaryHueLightForegroundBrush}" Width="30" Height="30" Margin="3,10,0,0">
-                            <materialDesign:PackIcon Kind="FormatColorFill" />
-                        </Button>
-                        <Button
-                            Style="{StaticResource MaterialDesignIconButton}" Foreground="{StaticResource PrimaryHueLightForegroundBrush}" Width="30" Height="30" Margin="3,10,0,0">
+                            Style="{StaticResource MaterialDesignIconButton}" 
+                            Foreground="{StaticResource PrimaryHueLightForegroundBrush}" 
+                            Width="30" Height="30" Margin="3,10,0,0">
                             <materialDesign:PackIcon Kind="Eraser" />
                         </Button>
-
+                        <Button
+                            Style="{StaticResource MaterialDesignIconButton}" 
+                            Foreground="{StaticResource PrimaryHueLightForegroundBrush}" 
+                            Width="30" Height="30" Margin="3,10,0,0">
+                            <materialDesign:PackIcon Kind="CursorDefaultOutline" />
+                        </Button>
                         <Border CornerRadius="50"  Margin="3,40,0,0">
-                            <colorpicker:PortableColorPicker Cursor="Hand" ColorState="{Binding ElementName=main, Path=ColorState, Mode=TwoWay}" Style="{StaticResource DefaultColorPickerStyle}" Width="30" Height="30"  />
+                            <colorpicker:PortableColorPicker 
+                                Cursor="Hand" 
+                                SelectedColor="{Binding Color,Mode=TwoWay}" 
+                                Style="{StaticResource DefaultColorPickerStyle}" 
+                                Width="30" Height="30"  />
                         </Border>
 
                     </StackPanel>
@@ -182,14 +204,9 @@
                         </Button>
                     </StackPanel>
                     <Grid Grid.Column="1" Grid.Row="1" Grid.RowSpan="2">
-                        <materialDesign:TransitioningContent OpeningEffect="{materialDesign:TransitionEffect Kind=FadeIn}">
-                            <Canvas x:Name="canvas" Background="White"  Margin="80,40,40,40" Cursor="Resources/MouseIcon.cur"  >
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="PreviewMouseDown">
-                                        <i:InvokeCommandAction Command="{Binding MouseEnter}" />
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-                            </Canvas>
+                        <materialDesign:TransitioningContent 
+                            OpeningEffect="{materialDesign:TransitionEffect Kind=FadeIn}">
+                            <controls:DrawControl Margin="80,40,40,40" Cursor="Resources/MouseIcon.cur" ActualSize="{Binding Path=VisibleSize,Mode=OneWayToSource}" Scene="{ Binding Path=SceneViewModel.Scene}"/>
                         </materialDesign:TransitioningContent>
                     </Grid>
 
