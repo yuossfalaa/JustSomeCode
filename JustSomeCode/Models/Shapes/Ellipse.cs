@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JustSomeCode.Models.Shapes;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -7,9 +8,10 @@ using System.Threading.Tasks;
 
 namespace JustSomeCode.Models
 {
-    public class Ellipse
+    public class Ellipse : PointList
     {
-        public List<Point> EllipsePoints { get; set; }
-
+        public Ellipse()
+        {
+        }
     }
 }

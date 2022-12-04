@@ -1,11 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using JustSomeCode.Models.Shapes;
+using System.Collections.Generic;
 using System.Drawing;
 
 namespace JustSomeCode.Models
 {
-    public class Rectangle
+    public class Rectangle : PointList
     {
-        public List<Point> RectanglePoints {get; set; }
-
+        public Rectangle()
+        {
+        }
     }
 }

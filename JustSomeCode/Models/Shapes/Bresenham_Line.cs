@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JustSomeCode.Models.Shapes;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -7,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace JustSomeCode.Models
 {
-    public class Bresenham_Line 
+    public class Bresenham_Line : PointList
     {
-        public List<Point> LinePoints { get; set; }
+        public Bresenham_Line() { }
     }
 }

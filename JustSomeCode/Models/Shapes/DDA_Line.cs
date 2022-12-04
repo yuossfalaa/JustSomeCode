@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using JustSomeCode.Models.Shapes;
+using System.Collections.Generic;
 using System.Drawing;
 
 namespace JustSomeCode.Models
 {
-    public class DDA_Line
+    public class DDA_Line: PointList
     {
-        public List<Point> LinePoints { get; set; }
+        public DDA_Line() { }   
     }
 }
