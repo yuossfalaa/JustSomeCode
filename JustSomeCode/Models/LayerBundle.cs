@@ -3,9 +3,7 @@ using System.Drawing;
 
 namespace JustSomeCode.Models
 {
-    /// <summary>
-    /// Layer bundle. Short data from Layer object to serializing.
-    /// </summary>
+    // Layer bundle. Short data from Layer object to serializing.
     [Serializable]
     public class LayerBundle
     {
