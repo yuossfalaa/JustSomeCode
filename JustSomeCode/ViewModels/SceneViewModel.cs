@@ -30,6 +30,8 @@ namespace JustSomeCode.ViewModels
         public ICommand ModeChangeToBresenhamLinePaintingCommand { get; private set; }
         public ICommand ModeChangeToMoveCommand { get; private set; }
         public ICommand ModeChangeToCircleCommand { get; private set; }
+        public ICommand ModeChangeToEllipseCommand { get; private set; }
+        public ICommand ModeChangeToRectangleCommand { get; private set; }
         public ICommand ModeChangeToDrawCommand { get; private set; }
         public ICommand ModeChangeToEraseCommand { get; private set; }
         #endregion
@@ -132,16 +134,21 @@ namespace JustSomeCode.ViewModels
             ModeChangeToMoveCommand = new RelayCommand(prama => ModeChangeToMove());
             ModeChangeToDrawCommand = new RelayCommand(prama => ModeChangeToDraw());
             ModeChangeToCircleCommand = new RelayCommand(prama => ModeChangeToCircle());
+            ModeChangeToEllipseCommand = new RelayCommand(prama => ModeChangeToEllipse());
             ModeChangeToEraseCommand = new RelayCommand(prama => ModeChangeToErase());
             ModeChangeToBresenhamLinePaintingCommand = new RelayCommand(prama => ModeChangeToBresenhamLinePainting());
+            ModeChangeToRectangleCommand = new RelayCommand(prama => ModeChangeToRectangle());
         }
 
-
-
-
-
-
         #region Private Methods
+        private void ModeChangeToRectangle()
+        {
+            Mode = (int)ModeValues.Rectangle;
+        }
+        private void ModeChangeToEllipse()
+        {
+            Mode = (int)ModeValues.Ellipse;
+        }
         private void ModeChangeToBresenhamLinePainting()
         {
             Mode = (int)ModeValues.BresenhamLine;

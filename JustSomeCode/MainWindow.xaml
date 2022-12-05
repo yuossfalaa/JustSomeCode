@@ -160,12 +160,14 @@
                         <Button
                             Style="{StaticResource MaterialDesignIconButton}" 
                             Foreground="{StaticResource PrimaryHueLightForegroundBrush}" 
+                            Command="{Binding Path=SceneViewModel.ModeChangeToEllipseCommand}"
                             Width="30" Height="30" Margin="8,10,0,0">
                             <materialDesign:PackIcon Kind="EllipseOutline" />
                         </Button>
                         <Button
                             Style="{StaticResource MaterialDesignIconButton}" 
                             Foreground="{StaticResource PrimaryHueLightForegroundBrush}" 
+                            Command="{Binding Path=SceneViewModel.ModeChangeToRectangleCommand }"
                             Width="30" Height="30" Margin="8,10,0,0">
                             <materialDesign:PackIcon Kind="VectorRectangle" />
                         </Button>
