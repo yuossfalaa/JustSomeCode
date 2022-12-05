@@ -175,7 +175,7 @@ namespace JustSomeCode.Models
 
             _pressed = true;
             _lastPoint = p;
-            if (Mode == 0)
+            if (Mode == 0 || Mode == 1)
             {
                 CheckLayerPostionAndSize(new[] { new Point(p.X, p.Y) });
                 var normalized = p.Normalize(SelectedLayer.Position);
@@ -215,7 +215,7 @@ namespace JustSomeCode.Models
         {
             if ((((HasNoLayers) | (!_pressed))) || (!SelectedLayer.IsVisible))
                 return;
-            if (Mode == 0 || Mode == 2)
+            if (Mode == 0 || Mode == 1|| Mode == 2)
             {
                 _moved = true;
             }
@@ -258,6 +258,17 @@ namespace JustSomeCode.Models
                 var normalized = p.Normalize(SelectedLayer.Position);
                 _endPoint = p;
                 DDALinePainter painter = new DDALinePainter();
+                if (_moved)
+                {
+                    SelectedLayer.DrawLines(_pen, painter.Draw(_startPoint, _endPoint).Points.Select(c => c.Normalize(SelectedLayer.Position)).ToArray());
+                }
+            }
+            else if (Mode == 1)
+            {
+                CheckLayerPostionAndSize(new[] { new Point(p.X, p.Y) });
+                var normalized = p.Normalize(SelectedLayer.Position);
+                _endPoint = p;
+                BresenhamLinePainter painter = new BresenhamLinePainter();
                 if (_moved)
                 {
                     SelectedLayer.DrawLines(_pen, painter.Draw(_startPoint, _endPoint).Points.Select(c => c.Normalize(SelectedLayer.Position)).ToArray());

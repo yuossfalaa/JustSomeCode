@@ -146,6 +146,7 @@
                                     Content="DDA" />
                                 <Button
                                     ToolTip="Bresenham Algorithm"
+                                    Command="{Binding Path=SceneViewModel.ModeChangeToBresenhamLinePaintingCommand}"
                                     Content="BA" />
                             </StackPanel>
                         </materialDesign:PopupBox>
