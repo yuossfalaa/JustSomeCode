@@ -175,13 +175,7 @@ namespace JustSomeCode.Models
 
             _pressed = true;
             _lastPoint = p;
-            if (Mode == 0 || Mode == 1)
-            {
-                CheckLayerPostionAndSize(new[] { new Point(p.X, p.Y) });
-                var normalized = p.Normalize(SelectedLayer.Position);
-                _startPoint = p;
-            }
-            else if (Mode == 2)
+            if (Mode == 0 || Mode == 1 || Mode == 2 || Mode == 4)
             {
                 CheckLayerPostionAndSize(new[] { new Point(p.X, p.Y) });
                 var normalized = p.Normalize(SelectedLayer.Position);
@@ -215,7 +209,7 @@ namespace JustSomeCode.Models
         {
             if ((((HasNoLayers) | (!_pressed))) || (!SelectedLayer.IsVisible))
                 return;
-            if (Mode == 0 || Mode == 1|| Mode == 2)
+            if (Mode == 0 || Mode == 1|| Mode == 2 || Mode == 4)
             {
                 _moved = true;
             }
@@ -284,6 +278,17 @@ namespace JustSomeCode.Models
                 if (_moved)
                 {
                     SelectedLayer.DrawLines(_pen, points.Select(c => c.Normalize(SelectedLayer.Position)).ToArray());
+                }
+            }
+            else if (Mode == 4)
+            {
+                CheckLayerPostionAndSize(new[] { new Point(p.X, p.Y) });
+                var normalized = p.Normalize(SelectedLayer.Position);
+                _endPoint = p;
+                RectanglePainter painter = new RectanglePainter();
+                if (_moved)
+                {
+                    SelectedLayer.DrawLines(_pen, painter.Draw(_startPoint, _endPoint).Points.Select(c => c.Normalize(SelectedLayer.Position)).ToArray());
                 }
             }
             else if (Mode == 7)
