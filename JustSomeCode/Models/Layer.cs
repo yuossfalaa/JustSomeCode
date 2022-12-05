@@ -145,7 +145,7 @@ namespace JustSomeCode.Models
                 gr.DrawLines(pen, points);
             }
 
-            //Invalidate();
+            Invalidate();
         }
 
         /// <summary>
