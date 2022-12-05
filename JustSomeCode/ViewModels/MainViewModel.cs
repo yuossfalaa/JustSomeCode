@@ -44,6 +44,7 @@ namespace JustSomeCode.ViewModels
         private void LoadScene(Scene scene)
         {
             SceneViewModel.Scene = scene;
+            SceneViewModel.Mode = 7;
         }
 
         private void Export()
