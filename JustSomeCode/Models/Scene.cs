@@ -10,35 +10,57 @@ using Brush = System.Drawing.Brush;
 using Color = System.Windows.Media.Color;
 using Colors = System.Drawing.Color;
 using Pen = System.Drawing.Pen;
-
 using PixelFormat = System.Drawing.Imaging.PixelFormat;
 using Point = System.Drawing.Point;
 using JustSomeCode.Services.DrawingServices;
 using System.Windows.Media;
+using System.Runtime.ConstrainedExecution;
 
 namespace JustSomeCode.Models
 {
     // Scene manage layer logic. 
     public class Scene:IDisposable
     {
+        #region constructor
+        public Scene()
+        {
+            _points = new List<Point>();
+            _selectedLayerIndex = -1;
+            Layers = new List<Layer>();
+            Color = (Color)System.Windows.Media.ColorConverter.ConvertFromString("#E30057");
+            Thickness = 5;
+        }
+        #endregion
+
         #region private fields
 
         private bool _pressed;
+        private bool _moved;
         private Point _lastPoint;
+        private Point _startPoint;
+        private Point _endPoint;
         private int _selectedLayerIndex;
         private List<Point> _points;
         private Pen _pen;
+        private Pen _eraserPin;
         private Brush _brush;
+        private Brush _eraserBrush;
         private int _thickness;
         private Color _color;
+        private Layer SelectedLayer
+        {
+            get
+            {
+                if (SelectedLayerIndex == -1)
+                    return null;
+
+                return Layers[SelectedLayerIndex];
+            }
+        }
 
         #endregion
 
         #region public properties
-
-        /// <summary>
-        /// Gets or sets current brush color
-        /// </summary>
         public Color Color
         {
             get
@@ -51,10 +73,6 @@ namespace JustSomeCode.Models
                 InvalidateBrushAndPen();
             }
         }
-
-        /// <summary>
-        /// Gets or sets current pen thickness (width)
-        /// </summary>
         public int Thickness
         {
             get
@@ -67,12 +85,9 @@ namespace JustSomeCode.Models
                 InvalidateBrushAndPen();
             }
         }
-
-        /// <summary>
         /// Gets or sets current selected layer index,
         /// if scene has layers, selected index should be positive, 
         /// if has no layers SelectedLayerIndex=-1
-        /// </summary>
         public int SelectedLayerIndex
         {
             get { return _selectedLayerIndex; }
@@ -88,76 +103,26 @@ namespace JustSomeCode.Models
                 _selectedLayerIndex = value;
             }
         }
-
-        /// <summary>
-        /// Gets layer list
-        /// </summary>
         public List<Layer> Layers { get; private set; }
-
-        /// <summary>
-        /// Returns true if scene has no layers
-        /// </summary>
         public bool HasNoLayers
         {
             get { return Layers.Count == 0; }
         }
-
-        /// <summary>
-        /// Gets or sets value
-        /// </summary>
-        public bool PanMode
-        {
-            get;
-            set;
-        }
+        public int Mode { get;set; }
 
         #endregion
-
-        private Layer SelectedLayer
-        {
-            get
-            {
-                if (SelectedLayerIndex == -1)
-                    return null;
-
-                return Layers[SelectedLayerIndex];
-            }
-        }
-
         
-
         #region public events
-
-        /// <summary>
-        /// Fires if something changed in scene
-        /// </summary>
+        //Fires if something changed in scene
         public event EventHandler SceneChanged;
-
-        /// <summary>
-        /// Fires when order of layers is changed (moving layer up\down, deleting)
-        /// </summary>
+        // Fires when order of layers is changed (moving layer up\down, deleting) (Disabled For Now)
         public event EventHandler LayersOrderChanged;
-
         #endregion
-
-        /// <summary>
-        /// Contructor
-        /// </summary>
-        public Scene()
-        {
-            _points = new List<Point>();
-            _selectedLayerIndex = -1;
-
-            Layers = new List<Layer>();
-            Color = (Color)System.Windows.Media.ColorConverter.ConvertFromString("Black");
-            Thickness = 5;     
-        }
 
         #region public methods
 
-        /// <summary>
+
         /// Export scene to PNG
-        /// </summary>
         /// <param name="filename">Filename</param>
         /// <param name="size">Canvas size</param>
         public void Export(string filename, Size size)
@@ -166,9 +131,7 @@ namespace JustSomeCode.Models
             bmp.Save(filename,ImageFormat.Png);
         }
 
-        /// <summary>
         /// Draw scene to bitmap
-        /// </summary>
         /// <param name="sceneWidth">Width of bitmap</param>
         /// <param name="sceneHeight">Height of bitmap</param>
         /// <returns>Bitmap with drawed scene</returns>
@@ -190,10 +153,6 @@ namespace JustSomeCode.Models
             }
             return bitmap;
         }
-
-        /// <summary>
-        /// Adding new layer to scene
-        /// </summary>
         public void AddNewLayer()
         {
             var layer = new Layer();
@@ -206,93 +165,7 @@ namespace JustSomeCode.Models
         }
 
         /// <summary>
-        /// Return true if layer can be deleted
-        /// </summary>
-        /// <returns></returns>
-        public bool CanRemoveSelectedLayer()
-        {
-            return SelectedLayerIndex != -1;
-        }
-
-        /// <summary>
-        /// Remove selected layer from scene
-        /// </summary>
-        public void RemoveSelectedLayer()
-        {
-            if (HasNoLayers)
-                return;
-            SelectedLayer.Dispose();
-            Layers.RemoveAt(SelectedLayerIndex);
-            if (HasNoLayers)
-                _selectedLayerIndex = -1;
-            else
-                _selectedLayerIndex = 0;
-
-            Invalidate();
-            InvalidateLayersOrder();
-        }
-
-        /// <summary>
-        /// Returns true if layer can be moved up
-        /// </summary>
-        /// <returns></returns>
-        public bool CanMoveSelectedLayerUp()
-        {
-            return SelectedLayerIndex > 0;
-        }
-
-        /// <summary>
-        /// Move selected layer up in layer list (move up in drawing order, move down in canvas )
-        /// </summary>
-        public void MoveSelectedLayerUp()
-        {
-            if (HasNoLayers)
-                return;
-
-            if (SelectedLayerIndex == 0)
-                return;
-            var layer = SelectedLayer;
-
-            Layers.RemoveAt(SelectedLayerIndex);
-            Layers.Insert(SelectedLayerIndex-1,layer);
-            SelectedLayerIndex--;
-
-            Invalidate();
-            InvalidateLayersOrder();
-        }
-
-        /// <summary>
-        /// Returns true if layer can be moved down
-        /// </summary>
-        /// <returns></returns>
-        public bool CanMoveSelectedLayerDown()
-        {
-            return SelectedLayerIndex < Layers.Count - 1;
-        }
-
-        /// <summary>
-        /// Move selected layer down in layer list (move down in drawing order, move up in canvas )
-        /// </summary>
-        public void MoveSelectedLayerDown()
-        {
-            if (HasNoLayers)
-                return;
-
-            if (SelectedLayerIndex==Layers.Count-1)
-                return;
-
-            var layer = SelectedLayer;
-
-            Layers.RemoveAt(SelectedLayerIndex);
-            Layers.Insert(SelectedLayerIndex+1, layer);
-            SelectedLayerIndex++;
-            Invalidate();
-            InvalidateLayersOrder();
-        }
-
-        /// <summary>
         /// Start user interaction logic, like MouseDown on control
-        /// If not pan mode draw point
         /// </summary>
         /// <param name="p">Start point</param>
         public void PressDown(Point p)
@@ -302,15 +175,36 @@ namespace JustSomeCode.Models
 
             _pressed = true;
             _lastPoint = p;
-
-            if (!PanMode)
+            if (Mode == 0)
+            {
+                CheckLayerPostionAndSize(new[] { new Point(p.X, p.Y) });
+                var normalized = p.Normalize(SelectedLayer.Position);
+                _startPoint = p;
+            }
+            else if (Mode == 2)
+            {
+                CheckLayerPostionAndSize(new[] { new Point(p.X, p.Y) });
+                var normalized = p.Normalize(SelectedLayer.Position);
+                _startPoint = p;
+            }
+            else if (Mode == 5)
             {
                 CheckLayerPostionAndSize(new[] {new Point(p.X, p.Y)});
                 var normalized = p.Normalize(SelectedLayer.Position);
                 SelectedLayer.DrawPoint(_brush, Thickness, normalized);
                 _points = new List<Point>();
                 _points.Add(p);
-            }          
+            }
+            else if (Mode == 6)
+            {
+                CheckLayerPostionAndSize(new[] { new Point(p.X, p.Y) });
+                var normalized = p.Normalize(SelectedLayer.Position);
+                SelectedLayer.DrawPoint(_eraserBrush, Thickness, normalized);
+                _points = new List<Point>();
+                _points.Add(p);
+            }
+            
+            
         }
 
         /// <summary>
@@ -321,20 +215,30 @@ namespace JustSomeCode.Models
         {
             if ((((HasNoLayers) | (!_pressed))) || (!SelectedLayer.IsVisible))
                 return;
-
-            if (PanMode)
+            if (Mode == 0 || Mode == 2)
+            {
+                _moved = true;
+            }
+            else if (Mode == 5)
+            {
+                CheckLayerPostionAndSize(new[] { new Point(p.X, p.Y), new Point(_lastPoint.X, _lastPoint.Y) });
+                _points.Add(p);
+                SelectedLayer.DrawLines(_pen, _points.Select(c => c.Normalize(SelectedLayer.Position)).ToArray());
+            }
+            else if (Mode == 6)
+            {
+                CheckLayerPostionAndSize(new[] { new Point(p.X, p.Y), new Point(_lastPoint.X, _lastPoint.Y) });
+                _points.Add(p);
+                SelectedLayer.DrawLines(_eraserPin, _points.Select(c => c.Normalize(SelectedLayer.Position)).ToArray());
+            }
+            else if (Mode == 7)
             {
                 var dx = p.X - _lastPoint.X ;
                 var dy = p.Y - _lastPoint.Y;
                 SelectedLayer.Offset(dx, dy);
             }
-            else
-            {
-                CheckLayerPostionAndSize(new[] { new Point(p.X, p.Y), new Point(_lastPoint.X,_lastPoint.Y)  });
-                _points.Add(p);
-                SelectedLayer.DrawLines(_pen,_points.Select(c=>c.Normalize(SelectedLayer.Position)).ToArray());
-            }
-
+            
+            
             _lastPoint = p;
         }
 
@@ -344,20 +248,47 @@ namespace JustSomeCode.Models
         /// <param name="p">Last point</param>
         public void PressUp(Point p)
         {
-            if ((((HasNoLayers)|(!_pressed))) || (!SelectedLayer.IsVisible))
+            if ((((HasNoLayers) | (!_pressed))) || (!SelectedLayer.IsVisible))
                 return;
 
             _pressed = false;
-
-            if (PanMode)
+            if (Mode == 0)
+            {
+                CheckLayerPostionAndSize(new[] { new Point(p.X, p.Y) });
+                var normalized = p.Normalize(SelectedLayer.Position);
+                _endPoint = p;
+                DDALinePainter painter = new DDALinePainter();
+                if (_moved)
+                {
+                    SelectedLayer.DrawLines(_pen, painter.Draw(_startPoint, _endPoint).Points.Select(c => c.Normalize(SelectedLayer.Position)).ToArray());
+                }
+            }
+            else if (Mode == 2)
+            {
+                CheckLayerPostionAndSize(new[] { new Point(p.X, p.Y) });
+                var normalized = p.Normalize(SelectedLayer.Position);
+                _endPoint = p;
+                CirclePainter painter = new CirclePainter();
+                List<Point> points = painter.Draw(_startPoint, _endPoint).Points;
+                if (_moved)
+                {
+                    SelectedLayer.DrawLines(_pen, points.Select(c => c.Normalize(SelectedLayer.Position)).ToArray());
+                }
+            }
+            else if (Mode == 7)
+            {
                 return;
-            SelectedLayer.Apply();
+
+            }
+
+
+            if (SelectedLayer != null)
+                SelectedLayer.Apply();
             _points.Clear();
+            _moved = false;
         }
 
-        /// <summary>
-        /// Dispose scene
-        /// </summary>
+        // Dispose scene
         public void Dispose()
         {
             _pen.Dispose();
@@ -372,7 +303,7 @@ namespace JustSomeCode.Models
 
         #region private methods
         /// <summary>
-        /// Add layers from bundles
+        /// Add layers from bundles (Disabled For Now)
         /// </summary>
         /// <param name="layerBundles">Collection of layer bundles</param>
         private void LayersFromBundle(IEnumerable<LayerBundle> layerBundles)
@@ -463,15 +394,23 @@ namespace JustSomeCode.Models
                 _pen.Dispose();
             if (_brush!=null)
                 _brush.Dispose();
-
             _brush = new SolidBrush(ColorExtension.ToDrawingColor(_color));
+            
+            _eraserBrush = new SolidBrush(ColorExtension.ToDrawingColor(Color.FromRgb(255,255,255)));
             _pen = new Pen(_brush,Thickness)
             {
                 StartCap = LineCap.Round,
                 EndCap = LineCap.Round,
-                LineJoin = LineJoin.Round            
+                LineJoin = LineJoin.Round
+            };
+            _eraserPin = new Pen(_eraserBrush, Thickness)
+            {
+                StartCap = LineCap.Round,
+                EndCap = LineCap.Round,
+                LineJoin = LineJoin.Round
             };
         }
+
         #endregion
        
     }

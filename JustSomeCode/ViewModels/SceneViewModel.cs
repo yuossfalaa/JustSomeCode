@@ -30,6 +30,7 @@ namespace JustSomeCode.ViewModels
         public ICommand ModeChangeToMoveCommand { get; private set; }
         public ICommand ModeChangeToCircleCommand { get; private set; }
         public ICommand ModeChangeToDrawCommand { get; private set; }
+        public ICommand ModeChangeToEraseCommand { get; private set; }
         #endregion
 
         #region public properties
@@ -130,13 +131,21 @@ namespace JustSomeCode.ViewModels
             ModeChangeToMoveCommand = new RelayCommand(prama => ModeChangeToMove());
             ModeChangeToDrawCommand = new RelayCommand(prama => ModeChangeToDraw());
             ModeChangeToCircleCommand = new RelayCommand(prama => ModeChangeToCircle());
+            ModeChangeToEraseCommand = new RelayCommand(prama => ModeChangeToErase());
         }
 
+
+
+
+        #region Private Methods
+        private void ModeChangeToErase()
+        {
+            Mode = (int)ModeValues.Erase;
+        }
         private void ModeChangeToCircle()
         {
             Mode = (int)ModeValues.Circle;
         }
-        #region Private Methods
         private void ModeChangeToDraw()
         {
             Mode = (int)ModeValues.Draw;

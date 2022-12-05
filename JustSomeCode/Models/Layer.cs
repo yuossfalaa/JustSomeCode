@@ -6,9 +6,13 @@ using System.Drawing.Imaging;
 
 namespace JustSomeCode.Models
 {
-    /// <summary>
-    /// Layer class. Contains drawing logic
-    /// </summary>
+    //Made By Sergey Voyteshonok
+    //https://github.com/SVoyt
+    //Edited By Youssef Alaa 
+    //https://github.com/yuossfalaa
+
+    // Layer class. Contains drawing logic
+
     public class Layer : IDisposable
     {
         #region private fields
@@ -20,12 +24,8 @@ namespace JustSomeCode.Models
         private Bitmap _bufferBitmap;
 
         #endregion
-
         #region public properties
-
-        /// <summary>
-        /// Gets or sets visibility of the layer
-        /// </summary>
+        // Gets or sets visibility of the layer
         public bool IsVisible
         {
             get { return _isVisible; }
@@ -35,10 +35,7 @@ namespace JustSomeCode.Models
                 Invalidate();
             }
         }
-
-        /// <summary>
-        /// Gets or sets layer position
-        /// </summary>
+        //Gets or sets layer position
         public Point Position
         {
             get { return _position; }
@@ -48,10 +45,7 @@ namespace JustSomeCode.Models
                 Invalidate();
             }
         }
-
-        /// <summary>
-        /// Gets layer size
-        /// </summary>
+        // Gets layer size
         public Size Size
         {
             get { return _size; }
@@ -61,11 +55,8 @@ namespace JustSomeCode.Models
                 Invalidate();
             }
         }
-
-        /// <summary>
-        /// Gets bitmap with already drawed figures, 
-        /// does not contain now drawing figure
-        /// </summary>
+        // Gets bitmap with already drawed figures, 
+        // does not contain now drawing figure
         public Bitmap Bitmap
         {
             get { return _bitmap; }
@@ -76,10 +67,7 @@ namespace JustSomeCode.Models
                 _bitmap = value;
             }
         }
-
-        /// <summary>
-        /// Gets bitmap of now drawing figure
-        /// </summary>
+        // Gets bitmap of now drawing figure
         public Bitmap BufferBitmap
         {
             get { return _bufferBitmap; }
@@ -92,26 +80,17 @@ namespace JustSomeCode.Models
         }
 
         #endregion
-
-        /// <summary>
-        /// Fires when something changed in layer 
-        /// </summary>
+        // Fires when something changed in layer 
         public event EventHandler LayerChanged;
 
         #region constructors
-
-        /// <summary>
-        /// Creates layer with 1 on 1 canvas
-        /// </summary>
+        // Creates layer with 1 on 1 canvas
         public Layer()
         {
             Size = new Size(1,1);
             Bitmap = new Bitmap(Size.Width, Size.Height, PixelFormat.Format32bppArgb);            
         }
-
-        /// <summary>
-        /// Creates layer from layer bundle
-        /// </summary>
+        // Creates layer from layer bundle
         /// <param name="layerBundle">layer bundle</param>
         public Layer(LayerBundle layerBundle)
         {
@@ -123,12 +102,10 @@ namespace JustSomeCode.Models
             IsVisible = layerBundle.IsVisible;
         }
 
-#endregion
+        #endregion
 
         #region public methods
-        /// <summary>
-        /// Changes poisition and size of layer
-        /// </summary>
+        // Changes poisition and size of layer
         /// <param name="newPosition">New position</param>
         /// <param name="newSize">New size</param>
         public void ChangeSizeAndPosition(Point newPosition, Size newSize)
@@ -151,9 +128,8 @@ namespace JustSomeCode.Models
             Invalidate();
         }
 
-        /// <summary>
         /// Draw lines by points
-        /// </summary>
+        /// To BE EDITED
         /// <param name="pen">Pen to draw</param>
         /// <param name="points">Lines points</param>
         public void DrawLines(Pen pen, Point[] points)
@@ -169,7 +145,7 @@ namespace JustSomeCode.Models
                 gr.DrawLines(pen, points);
             }
 
-            Invalidate();
+            //Invalidate();
         }
 
         /// <summary>
@@ -195,22 +171,19 @@ namespace JustSomeCode.Models
             Invalidate();
         }
 
-        /// <summary>
-        /// Applies now drawing figure to Bitmap
-        /// </summary>
+        // Applies now drawing figure to Bitmap
         public void Apply()
         {
             using (var gr = Graphics.FromImage(Bitmap))
             {
-                gr.DrawImage(BufferBitmap,0,0);
+                if (BufferBitmap != null)
+                    gr.DrawImage(BufferBitmap,0,0);
             }
             BufferBitmap = null;
             Invalidate();
         }
 
-        /// <summary>
         /// Offset layer
-        /// </summary>
         /// <param name="dx">X offset (adds to x)</param>
         /// <param name="dy">Y offset (adds to y)</param>
         public void Offset(int dx, int dy)
@@ -220,18 +193,14 @@ namespace JustSomeCode.Models
             Invalidate();
         }
 
-        /// <summary>
         /// Invalidating layer
-        /// </summary>
         public void Invalidate()
         {
             if (LayerChanged!=null)
                 LayerChanged(this,new EventArgs());
         }
 
-        /// <summary>
         /// Disposing layer ( dispose bitmaps )
-        /// </summary>
         public void Dispose()
         {
             Bitmap = null;

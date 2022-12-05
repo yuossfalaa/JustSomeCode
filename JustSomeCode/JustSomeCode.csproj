@@ -173,6 +173,8 @@
     <None Remove="Resources\Logo\Logo_00148.png" />
     <None Remove="Resources\Logo\Logo_00149.png" />
     <None Remove="Resources\MouseIcon.cur" />
+    <None Remove="Resources\MouseIcons\Arrow.cur" />
+    <None Remove="Resources\MouseIcons\Pointer.cur" />
   </ItemGroup>
 
   <ItemGroup>
@@ -337,7 +339,7 @@
     <Resource Include="Resources\Logo\Logo_00147.png" />
     <Resource Include="Resources\Logo\Logo_00148.png" />
     <Resource Include="Resources\Logo\Logo_00149.png" />
-    <Resource Include="Resources\MouseIcon.cur" />
+    <Resource Include="Resources\MouseIcons\Arrow.cur" />
   </ItemGroup>
 
   <ItemGroup>
