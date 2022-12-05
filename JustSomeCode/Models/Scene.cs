@@ -175,7 +175,7 @@ namespace JustSomeCode.Models
 
             _pressed = true;
             _lastPoint = p;
-            if (Mode == 0 || Mode == 1 || Mode == 2 || Mode == 4)
+            if (Mode == 0 || Mode == 1 || Mode == 2|| Mode == 3 || Mode == 4 )
             {
                 CheckLayerPostionAndSize(new[] { new Point(p.X, p.Y) });
                 var normalized = p.Normalize(SelectedLayer.Position);
@@ -209,7 +209,7 @@ namespace JustSomeCode.Models
         {
             if ((((HasNoLayers) | (!_pressed))) || (!SelectedLayer.IsVisible))
                 return;
-            if (Mode == 0 || Mode == 1|| Mode == 2 || Mode == 4)
+            if (Mode == 0 || Mode == 1|| Mode == 2||Mode == 3 || Mode == 4)
             {
                 _moved = true;
             }
@@ -279,6 +279,18 @@ namespace JustSomeCode.Models
                 {
                     SelectedLayer.DrawLines(_pen, points.Select(c => c.Normalize(SelectedLayer.Position)).ToArray());
                 }
+            }      
+            else if (Mode == 3)
+            {
+                //CheckLayerPostionAndSize(new[] { new Point(p.X, p.Y) });
+                //var normalized = p.Normalize(SelectedLayer.Position);
+                //_endPoint = p;
+                //EllipsePainter painter = new EllipsePainter();
+                //List<Point> points = painter.Draw(_startPoint, _endPoint).Points;
+                //if (_moved)
+                //{
+                //    SelectedLayer.DrawLines(_pen, points.Select(c => c.Normalize(SelectedLayer.Position)).ToArray());
+                //}
             }
             else if (Mode == 4)
             {
