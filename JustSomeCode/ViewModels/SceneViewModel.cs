@@ -4,50 +4,39 @@ using System.Windows.Input;
 using System.Windows.Media;
 using MVVM;
 using JustSomeCode.Models;
+using System.Xml.Linq;
 
 namespace JustSomeCode.ViewModels
 {
-    /// <summary>
-    /// View model for scene class
-    /// </summary>
     public class SceneViewModel:ViewModelBase
     {
+        #region Private Variables
         private Scene _scene;
+        #endregion
+        public enum ModeValues
+        {
+            DDALine,
+            BresenhamLine,
+            Circle,
+            Ellipse,
+            Rectangle,
+            Draw,
+            Erase,
+            Move
 
+        }
         #region commands
-
-        /// <summary>
-        /// Gets command to add new layer to scene
-        /// </summary>
-        public ICommand AddLayerCommand { get; private set; }
-
-        /// <summary>
-        /// Gets command to remove layer from scene
-        /// </summary>
-        public ICommand RemoveLayerCommand { get; private set; }
-
-        /// <summary>
-        /// Gets command to move up layer in layer list
-        /// </summary>
-        public ICommand UpLayerCommand { get; private set; }
-
-        /// <summary>
-        /// Gets command to move down layer in layer list
-        /// </summary>
-        public ICommand DownLayerCommand { get; private set; }
-
+        public ICommand ModeChangeToDDALinePaintingCommand { get; private set; }
+        public ICommand ModeChangeToMoveCommand { get; private set; }
+        public ICommand ModeChangeToCircleCommand { get; private set; }
+        public ICommand ModeChangeToDrawCommand { get; private set; }
         #endregion
 
         #region public properties
 
-        /// <summary>
-        /// Gets layers viewmodel observable collection
-        /// </summary>
-        public ObservableCollection<LayerViewModel> Layers { get; private set; }
+            
 
-        /// <summary>
-        /// Gets or sets selected layer index
-        /// </summary>
+        public ObservableCollection<LayerViewModel> Layers { get; private set; }
         public int SelectedLayerIndex
         {
             get { return Scene.SelectedLayerIndex; }
@@ -60,10 +49,6 @@ namespace JustSomeCode.ViewModels
                 RaisePropertyChanged("SelectedLayerViewModel");
             }
         }
-
-        /// <summary>
-        /// Gets selected layer view model
-        /// </summary>
         public LayerViewModel SelectedLayerViewModel
         {
             get
@@ -84,10 +69,7 @@ namespace JustSomeCode.ViewModels
                 RaisePropertyChanged("ColorString");
             }
         }
-
-        /// <summary>
         /// Gets color in string format
-        /// </summary>
         public string ColorString
         {
             get
@@ -97,9 +79,6 @@ namespace JustSomeCode.ViewModels
             }
         }
 
-        /// <summary>
-        /// Gets or sets pen thickness
-        /// </summary>
         public int Thickness
         {
             get { return Scene.Thickness; }
@@ -109,24 +88,18 @@ namespace JustSomeCode.ViewModels
                 RaisePropertyChanged("Thickness");
             }
         }
-
-        /// <summary>
-        /// Gets or sets true if pan mode is on
-        /// </summary>
-        public bool PanMode
+        public int Mode
         {
-            get { return Scene.PanMode; }
+            get { return Scene.Mode; }
             set
             {
-                Scene.PanMode = value;
+                Scene.Mode = value;
 
-                RaisePropertyChanged("PanMode");
+                RaisePropertyChanged("Mode");
             }
         }
 
-        /// <summary>
-        /// Scene
-        /// </summary>
+    
         public Scene Scene
         {
             get { return _scene; }
@@ -138,6 +111,7 @@ namespace JustSomeCode.ViewModels
                     _scene.Dispose();
                 _scene = value;
                 _scene.LayersOrderChanged += _scene_LayersOrderChanged;
+               
                 InvalidateLayerList();
                 RaisePropertyChanged("Scene");
             }
@@ -151,13 +125,31 @@ namespace JustSomeCode.ViewModels
             Layers = new ObservableCollection<LayerViewModel>();
             Scene = scene;
             Thickness = Scene.Thickness;
-          
-            AddLayerCommand = new RelayCommand(param => Scene.AddNewLayer() );
-            RemoveLayerCommand = new RelayCommand(param => Scene.RemoveSelectedLayer(),param=> Scene.CanRemoveSelectedLayer());
-            UpLayerCommand = new RelayCommand(param => Scene.MoveSelectedLayerUp(), param => Scene.CanMoveSelectedLayerUp());
-            DownLayerCommand = new RelayCommand(param => Scene.MoveSelectedLayerDown(), param=>Scene.CanMoveSelectedLayerDown());
+            Mode = (int)ModeValues.Move;
+            ModeChangeToDDALinePaintingCommand = new RelayCommand(prama => ModeChangeToDDALinePainting());
+            ModeChangeToMoveCommand = new RelayCommand(prama => ModeChangeToMove());
+            ModeChangeToDrawCommand = new RelayCommand(prama => ModeChangeToDraw());
+            ModeChangeToCircleCommand = new RelayCommand(prama => ModeChangeToCircle());
         }
 
+        private void ModeChangeToCircle()
+        {
+            Mode = (int)ModeValues.Circle;
+        }
+        #region Private Methods
+        private void ModeChangeToDraw()
+        {
+            Mode = (int)ModeValues.Draw;
+        }
+
+        private void ModeChangeToDDALinePainting()
+        {
+            Mode = (int)ModeValues.DDALine;
+        }
+        private void ModeChangeToMove()
+        {
+            Mode = (int)ModeValues.Move;
+        }
 
         private void _scene_LayersOrderChanged(object sender, EventArgs e)
         {
@@ -174,6 +166,6 @@ namespace JustSomeCode.ViewModels
 
             SelectedLayerIndex = Scene.SelectedLayerIndex;
         }
-
+        #endregion
     }
 }
