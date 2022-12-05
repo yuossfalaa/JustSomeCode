@@ -14,16 +14,26 @@ namespace JustSomeCode.Services.DrawingServices
             DDA_Line dda_Line= new DDA_Line();
             int dx = End.X - Start.X , dy = End.Y - Start.Y ;
             int Distance = Math.Max(Math.Abs(dx), Math.Abs(dy));
-            float dxdt = dx / Distance,dydt=dy/Distance;
-            float x = Start.X,y = Start.Y;
-            while (Distance!=0)
+            if (Distance > 0 )
             {
-                points.Add(new Point((int)x,(int)y));
-                x += dxdt;
-                y += dydt;
-                Distance--;
+                float dxdt =(float)dx / Distance, dydt = (float)dy / Distance;
+                float x = Start.X, y = Start.Y;
+                while (Distance != 0)
+                {
+                    points.Add(new Point((int)Math.Round(x), (int)Math.Round(y)));
+                    x += dxdt;
+                    y += dydt;
+                    Distance--;
+                }
+                dda_Line.Points = points;
+
             }
-            dda_Line.Points = points;
+            else
+            {
+                points.Add(Start);
+                dda_Line.Points = points;
+            }
+           
             return dda_Line;
         }
     }
