@@ -192,12 +192,12 @@
                             Width="30" Height="30" Margin="8,10,0,0">
                             <materialDesign:PackIcon Kind="CursorDefaultOutline" />
                         </Button>
-                        <Slider Margin="15,40,0,0" Height="110" 
+                        <Slider Margin="15,40,0,0" Height="110"
                                 Foreground="{StaticResource PrimaryHueLightForegroundBrush}"
                                 Orientation="Vertical"
                                 Minimum="1"
                                 Maximum="100"
-                                Value="{Binding SceneViewModel.Thickness}"
+                                Value="{Binding SceneViewModel.Thickness , Mode=TwoWay }"
                                 IsDirectionReversed="True" />
                         <Border CornerRadius="50"  Margin="10,40,0,0">
                             <colorpicker:PortableColorPicker 

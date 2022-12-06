@@ -15,6 +15,7 @@ using Point = System.Drawing.Point;
 using JustSomeCode.Services.DrawingServices;
 using System.Windows.Media;
 using System.Runtime.ConstrainedExecution;
+using MVVM;
 
 namespace JustSomeCode.Models
 {
@@ -29,6 +30,8 @@ namespace JustSomeCode.Models
             Layers = new List<Layer>();
             Color = (Color)System.Windows.Media.ColorConverter.ConvertFromString("#E30057");
             Thickness = 5;
+
+            
         }
         #endregion
 
@@ -83,6 +86,7 @@ namespace JustSomeCode.Models
             {
                 _thickness = value;
                 InvalidateBrushAndPen();
+
             }
         }
         /// Gets or sets current selected layer index,
@@ -277,20 +281,20 @@ namespace JustSomeCode.Models
                 List<Point> points = painter.Draw(_startPoint, _endPoint).Points;
                 if (_moved)
                 {
-                    SelectedLayer.DrawLines(_pen, points.Select(c => c.Normalize(SelectedLayer.Position)).ToArray());
+                            SelectedLayer.DrawLines(_pen, points.Select(c => c.Normalize(SelectedLayer.Position)).ToArray());
                 }
             }      
             else if (Mode == 3)
             {
-                //CheckLayerPostionAndSize(new[] { new Point(p.X, p.Y) });
-                //var normalized = p.Normalize(SelectedLayer.Position);
-                //_endPoint = p;
-                //EllipsePainter painter = new EllipsePainter();
-                //List<Point> points = painter.Draw(_startPoint, _endPoint).Points;
-                //if (_moved)
-                //{
-                //    SelectedLayer.DrawLines(_pen, points.Select(c => c.Normalize(SelectedLayer.Position)).ToArray());
-                //}
+                CheckLayerPostionAndSize(new[] { new Point(p.X, p.Y) });
+                var normalized = p.Normalize(SelectedLayer.Position);
+                _endPoint = p;
+                EllipsePainter painter = new EllipsePainter();
+                List<Point> points = painter.Draw(_startPoint, _endPoint).Points;
+                if (_moved)
+                {
+                    SelectedLayer.DrawLines(_pen, points.Select(c => c.Normalize(SelectedLayer.Position)).ToArray());
+                }
             }
             else if (Mode == 4)
             {

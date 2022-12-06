@@ -3,6 +3,7 @@ using JustSomeCode.Models.Shapes;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 
 namespace JustSomeCode.Services.DrawingServices
 {
@@ -12,11 +13,11 @@ namespace JustSomeCode.Services.DrawingServices
         {
             List<Point> points = new List<Point>();
             Circle circle = new Circle();
-            int radius = (int)Math.Sqrt(Math.Pow(End.X - Start.X, 2) + Math.Pow(End.Y - Start.Y, 2));
-            int x = radius, y = 0;
-            int p = 1- radius;
+            double radius = Math.Sqrt(Math.Pow(End.X - Start.X, 2) + Math.Pow(End.Y - Start.Y, 2));
+            int x = (int)Math.Round(radius), y = 0;
+            double p = 1- radius;
 
-            while (x > y)
+            while (x >= y)
             {
                 y++;
                 if (p <= 0)
@@ -25,11 +26,9 @@ namespace JustSomeCode.Services.DrawingServices
                 }
                 else
                 {
-                    
                     x--;
                     p = p + (2 * y) - (2 * x) + 1;
                 }
-
                 points.Add(new Point(x+Start.X,y+Start.Y));
                 points.Add(new Point(-x + Start.X, y + Start.Y));
                 points.Add(new Point(x + Start.X, -y +Start.Y));
@@ -38,14 +37,12 @@ namespace JustSomeCode.Services.DrawingServices
                 points.Add(new Point(-y + Start.X, x + Start.Y));
                 points.Add(new Point(y + Start.X, -x + Start.Y));
                 points.Add(new Point(-y + Start.X, -x + Start.Y));
-
-
-
-
             }
-            circle.Points = points;
+
+            circle.Points = points.OrderBy(x => Math.Atan2(x.X-Start.X, x.Y-Start.Y)).ToList(); 
             return circle;
         }
+      
     }
+    
 }
-

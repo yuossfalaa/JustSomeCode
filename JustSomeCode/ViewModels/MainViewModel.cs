@@ -43,8 +43,10 @@ namespace JustSomeCode.ViewModels
         }
         private void LoadScene(Scene scene)
         {
+            scene.Thickness = SceneViewModel.Thickness;
             SceneViewModel.Scene = scene;
             SceneViewModel.Mode = 7;
+           
         }
 
         private void Export()
