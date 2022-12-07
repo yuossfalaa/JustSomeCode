@@ -279,6 +279,8 @@ namespace JustSomeCode.Models
                 _endPoint = p;
                 CirclePainter painter = new CirclePainter();
                 List<Point> points = painter.Draw(_startPoint, _endPoint).Points;
+                CheckLayerPostionAndSize(points.ToArray());
+
                 if (_moved)
                 {
                             SelectedLayer.DrawLines(_pen, points.Select(c => c.Normalize(SelectedLayer.Position)).ToArray());
@@ -291,6 +293,8 @@ namespace JustSomeCode.Models
                 _endPoint = p;
                 EllipsePainter painter = new EllipsePainter();
                 List<Point> points = painter.Draw(_startPoint, _endPoint).Points;
+                CheckLayerPostionAndSize(points.ToArray());
+
                 if (_moved)
                 {
                     SelectedLayer.DrawLines(_pen, points.Select(c => c.Normalize(SelectedLayer.Position)).ToArray());
