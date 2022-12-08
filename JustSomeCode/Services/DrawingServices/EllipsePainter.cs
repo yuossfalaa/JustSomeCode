@@ -13,6 +13,12 @@ namespace JustSomeCode.Services.DrawingServices
         {
             Ellipse ellipse = new Ellipse();
             List<Point> points = new List<Point>();
+            ///<summary>
+            ///Algorithm From :  
+            ///<seealso cref="https://www.geeksforgeeks.org/midpoint-ellipse-drawing-algorithm/"/>
+            ///</summary>
+
+
             double rx = Start.X,ry = Start.Y,xc = End.X,yc = End.Y;
             double dx, dy, d1, d2, x, y;
             x = 0;
