@@ -13,71 +13,81 @@ namespace JustSomeCode.Services.DrawingServices
         {
             Ellipse ellipse = new Ellipse();
             List<Point> points = new List<Point>();
-          
-            int xc = Start.X, yc = Start.Y, Rx = End.X, Ry = End.Y;
+            double rx = Start.X,ry = Start.Y,xc = End.X,yc = End.Y;
+            double dx, dy, d1, d2, x, y;
+            x = 0;
+            y = ry;
 
-            int Rx2 = Rx * Rx;
-            int Ry2 = Ry * Ry;
+            // Initial decision parameter of region 1
+            d1 = (ry * ry) - (rx * rx * ry) + (0.25f * rx * rx);
+            dx = 2 * ry * ry * x;
+            dy = 2 * rx * rx * y;
 
-            int twoRx2 = 2 * Rx2;
-            int twoRy2 = 2 * Ry2;
-
-            double p;
-            int x = 0, y = Ry, dx = twoRy2 * x, dy = twoRx2 * y;
-
-            p = Math.Pow(Ry, 2) - (Math.Pow(Rx, 2) * Ry) + (Math.Pow(Rx, 2) * 0.25);
-            do
+            // For region 1
+            while (dx < dy)
             {
-                x++;
-                dx = twoRy2 * x;
 
-                if (p < 0)
-                    p += Ry2 + dx;
+                points.Add(new Point((int)Math.Round(xc + x ), (int)Math.Round(yc + y )));
+                points.Add(new Point((int)Math.Round(xc - x ), (int)Math.Round(yc + y )));
+                points.Add(new Point((int)Math.Round(xc - x ), (int)Math.Round(yc - y )));
+                points.Add(new Point((int)Math.Round(xc + x ), (int)Math.Round(yc - y )));
 
-                else
+                // Checking and updating value of
+                // decision parameter based on algorithm
+                if (d1 < 0)
                 {
-                    y--;
-                    dy = twoRx2 * y;
-                    p += Ry2 + dx - dy;
-                }
-
-                points.Add(new Point(xc + x+Start.X, yc + y+Start.Y));
-                points.Add(new Point(xc - x+ Start.X, yc + y+Start.Y));
-                points.Add(new Point(xc - x+Start.X, yc - y+Start.Y));
-                points.Add(new Point(xc + x+Start.X, yc - y+Start.Y));
-
-            } while (dx < dy);
-
-
-            //region two
-            p = (int)Math.Round((y - 1) * Rx2 * (y - 1) + Ry2 * (x + .5) * (x + .5) - Rx2 * Ry2);
-            while (y > 0)
-            {
-                y--;
-                dy = twoRx2 * y;
-                if (p > 0)
-                {
-                    p += Rx2 - dy;
+                    x++;
+                    dx = dx + (2 * ry * ry);
+                    d1 = d1 + dx + (ry * ry);
                 }
                 else
                 {
                     x++;
-                    dx = twoRy2 * x;
-                    p += Rx2 - dy + dx;
+                    y--;
+                    dx = dx + (2 * ry * ry);
+                    dy = dy - (2 * rx * rx);
+                    d1 = d1 + dx - dy + (ry * ry);
                 }
-
-                points.Add(new Point(xc + x+Start.X, yc + y+Start.Y));
-                points.Add(new Point(xc - x+Start.X, yc + y+Start.Y));
-                points.Add(new Point(xc - x+Start.X, yc - y+Start.Y));
-                points.Add(new Point(xc + x+Start.X, yc - y+Start.Y));
-
-
-
-
-                
             }
+
+            // Decision parameter of region 2
+            d2 = ((ry * ry) * ((x + 0.5f) * (x + 0.5f)))
+                + ((rx * rx) * ((y - 1) * (y - 1)))
+                - (rx * rx * ry * ry);
+
+            // Plotting points of region 2
+            while (y >= 0)
+            {
+
+
+
+                points.Add(new Point((int)Math.Round(xc + x ), (int)Math.Round(yc + y )));
+                points.Add(new Point((int)Math.Round(xc - x ), (int)Math.Round(yc + y )));
+                points.Add(new Point((int)Math.Round(xc - x ), (int)Math.Round( yc - y )));
+                points.Add(new Point((int)Math.Round(xc + x ), (int)Math.Round(yc - y )));
+
+                // Checking and updating parameter
+                // value based on algorithm
+                if (d2 > 0)
+                {
+                    y--;
+                    dy = dy - (2 * rx * rx);
+                    d2 = d2 + (rx * rx) - dy;
+                }
+                else
+                {
+                    y--;
+                    x++;
+                    dx = dx + (2 * ry * ry);
+                    dy = dy - (2 * rx * rx);
+                    d2 = d2 + dx - dy + (rx * rx);
+                }
+            }
+
+
             ellipse.Points = points.OrderBy(x => Math.Atan2(x.X - Start.X, x.Y - Start.Y)).ToList();
             return ellipse;
         }
     }
 }
+

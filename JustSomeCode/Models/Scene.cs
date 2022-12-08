@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
-using System.IO;
 using System.Linq;
-using System.Runtime.Serialization;
 using Brush = System.Drawing.Brush;
 using Color = System.Windows.Media.Color;
 using Colors = System.Drawing.Color;
@@ -13,9 +11,6 @@ using Pen = System.Drawing.Pen;
 using PixelFormat = System.Drawing.Imaging.PixelFormat;
 using Point = System.Drawing.Point;
 using JustSomeCode.Services.DrawingServices;
-using System.Windows.Media;
-using System.Runtime.ConstrainedExecution;
-using MVVM;
 
 namespace JustSomeCode.Models
 {
@@ -135,10 +130,12 @@ namespace JustSomeCode.Models
             bmp.Save(filename,ImageFormat.Png);
         }
 
+        /// <summary>
         /// Draw scene to bitmap
         /// <param name="sceneWidth">Width of bitmap</param>
         /// <param name="sceneHeight">Height of bitmap</param>
         /// <returns>Bitmap with drawed scene</returns>
+        /// <summary>
         public Bitmap DrawToBitmap(int sceneWidth,int sceneHeight)
         {
             var bitmap = new Bitmap(sceneWidth, sceneHeight, PixelFormat.Format32bppArgb);
