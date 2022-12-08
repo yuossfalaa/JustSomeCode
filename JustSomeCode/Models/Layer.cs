@@ -105,9 +105,11 @@ namespace JustSomeCode.Models
         #endregion
 
         #region public methods
+        ///<summary>
         // Changes poisition and size of layer
         /// <param name="newPosition">New position</param>
         /// <param name="newSize">New size</param>
+        /// </summary>
         public void ChangeSizeAndPosition(Point newPosition, Size newSize)
         {
             var newBitmap = new Bitmap(newSize.Width,newSize.Height,PixelFormat.Format32bppArgb);
@@ -127,11 +129,12 @@ namespace JustSomeCode.Models
             Size = newSize;
             Invalidate();
         }
-
+        ///<summary>
         /// Draw lines by points
         /// To BE EDITED
         /// <param name="pen">Pen to draw</param>
         /// <param name="points">Lines points</param>
+        /// </summary>
         public void DrawLines(Pen pen, Point[] points)
         {
             try
@@ -149,9 +152,9 @@ namespace JustSomeCode.Models
 
                 Invalidate();
             }
-            catch (Exception e)
+            catch 
             {
-                ExceptionDispatchInfo.Throw(new Exception(e));
+                ExceptionDispatchInfo.Throw(new Exception("Drawing Faild"));
                 Invalidate();
             }
            
@@ -180,8 +183,9 @@ namespace JustSomeCode.Models
 
             Invalidate();
         }
-
+        ///<summary>
         // Applies now drawing figure to Bitmap
+        /// </summary>
         public void Apply()
         {
             using (var gr = Graphics.FromImage(Bitmap))
@@ -192,10 +196,11 @@ namespace JustSomeCode.Models
             BufferBitmap = null;
             Invalidate();
         }
-
+        ///<summary>
         /// Offset layer
         /// <param name="dx">X offset (adds to x)</param>
         /// <param name="dy">Y offset (adds to y)</param>
+        /// </summary>
         public void Offset(int dx, int dy)
         {
             _position.X += dx;
