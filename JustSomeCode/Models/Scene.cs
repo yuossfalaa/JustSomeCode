@@ -120,10 +120,12 @@ namespace JustSomeCode.Models
 
         #region public methods
 
-
-        /// Export scene to PNG
+        ///<summary>
+        /// /// Export scene to PNG
         /// <param name="filename">Filename</param>
         /// <param name="size">Canvas size</param>
+        ///</summary>
+
         public void Export(string filename, Size size)
         {
             var bmp = DrawToBitmap(size.Width, size.Height);           
@@ -135,7 +137,7 @@ namespace JustSomeCode.Models
         /// <param name="sceneWidth">Width of bitmap</param>
         /// <param name="sceneHeight">Height of bitmap</param>
         /// <returns>Bitmap with drawed scene</returns>
-        /// <summary>
+        /// </summary>
         public Bitmap DrawToBitmap(int sceneWidth,int sceneHeight)
         {
             var bitmap = new Bitmap(sceneWidth, sceneHeight, PixelFormat.Format32bppArgb);

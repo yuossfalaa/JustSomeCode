@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
-
+using System.Runtime.ExceptionServices;
 
 namespace JustSomeCode.Models
 {
@@ -134,18 +134,28 @@ namespace JustSomeCode.Models
         /// <param name="points">Lines points</param>
         public void DrawLines(Pen pen, Point[] points)
         {
-            if (pen == null)
-                throw new ArgumentNullException("pen");
-
-            BufferBitmap = new Bitmap(Bitmap.Width, Bitmap.Height, PixelFormat.Format32bppArgb);
-
-            using (var gr = Graphics.FromImage(BufferBitmap))
+            try
             {
-                gr.SmoothingMode = SmoothingMode.HighQuality;
-                gr.DrawLines(pen, points);
-            }
+                if (pen == null)
+                    throw new ArgumentNullException("pen");
 
-            Invalidate();
+                BufferBitmap = new Bitmap(Bitmap.Width, Bitmap.Height, PixelFormat.Format32bppArgb);
+
+                using (var gr = Graphics.FromImage(BufferBitmap))
+                {
+                    gr.SmoothingMode = SmoothingMode.HighQuality;
+                    gr.DrawLines(pen, points);
+                }
+
+                Invalidate();
+            }
+            catch (Exception e)
+            {
+                ExceptionDispatchInfo.Throw(new Exception(e));
+                Invalidate();
+            }
+           
+           
         }
 
         /// <summary>

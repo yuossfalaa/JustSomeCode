@@ -9,15 +9,14 @@ namespace JustSomeCode.Services.DrawingServices
 {
     public class EllipsePainter : CommonDrawingOperations, IDraw
     {
+        ///<summary>
+        ///Algorithm From :  
+        ///<seealso cref="https://www.geeksforgeeks.org/midpoint-ellipse-drawing-algorithm/"/>
+        ///</summary>
         public PointList Draw(Point Start, Point End)
         {
             Ellipse ellipse = new Ellipse();
             List<Point> points = new List<Point>();
-            ///<summary>
-            ///Algorithm From :  
-            ///<seealso cref="https://www.geeksforgeeks.org/midpoint-ellipse-drawing-algorithm/"/>
-            ///</summary>
-
 
             double rx = Start.X,ry = Start.Y,xc = End.X,yc = End.Y;
             double dx, dy, d1, d2, x, y;
