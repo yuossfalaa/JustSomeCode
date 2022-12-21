@@ -44,6 +44,7 @@ namespace JustSomeCode.ViewModels
         private void LoadScene(Scene scene)
         {
             scene.Thickness = SceneViewModel.Thickness;
+            scene.Color = SceneViewModel.Color;
             SceneViewModel.Scene = scene;
             SceneViewModel.Mode = 7;
            
