@@ -13,18 +13,7 @@ namespace JustSomeCode.ViewModels
         #region Private Variables
         private Scene _scene;
         #endregion
-        public enum ModeValues
-        {
-            DDALine,
-            BresenhamLine,
-            Circle,
-            Ellipse,
-            Rectangle,
-            Draw,
-            Erase,
-            Move
-
-        }
+       
         #region commands
         public ICommand ModeChangeToDDALinePaintingCommand { get; private set; }
         public ICommand ModeChangeToBresenhamLinePaintingCommand { get; private set; }
@@ -37,9 +26,18 @@ namespace JustSomeCode.ViewModels
         #endregion
 
         #region public properties
+        public enum ModeValues
+        {
+            DDALine,
+            BresenhamLine,
+            Circle,
+            Ellipse,
+            Rectangle,
+            Draw,
+            Erase,
+            Move
 
-            
-
+        }
         public ObservableCollection<LayerViewModel> Layers { get; private set; }
         public int SelectedLayerIndex
         {
@@ -123,13 +121,14 @@ namespace JustSomeCode.ViewModels
 
 
         #endregion
-
+        #region Constructor
         public SceneViewModel(Scene scene)
         {
             Layers = new ObservableCollection<LayerViewModel>();
             Scene = scene;
             Thickness = Scene.Thickness;
             Mode = (int)ModeValues.Move;
+
             ModeChangeToDDALinePaintingCommand = new RelayCommand(prama => ModeChangeToDDALinePainting());
             ModeChangeToMoveCommand = new RelayCommand(prama => ModeChangeToMove());
             ModeChangeToDrawCommand = new RelayCommand(prama => ModeChangeToDraw());
@@ -139,6 +138,7 @@ namespace JustSomeCode.ViewModels
             ModeChangeToBresenhamLinePaintingCommand = new RelayCommand(prama => ModeChangeToBresenhamLinePainting());
             ModeChangeToRectangleCommand = new RelayCommand(prama => ModeChangeToRectangle());
         }
+        #endregion
 
         #region Private Methods
         private void ModeChangeToRectangle()

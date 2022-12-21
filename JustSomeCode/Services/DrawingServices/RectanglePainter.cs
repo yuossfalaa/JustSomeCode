@@ -14,6 +14,8 @@ namespace JustSomeCode.Services.DrawingServices
             BresenhamLinePainter Line2= new BresenhamLinePainter();
             BresenhamLinePainter Line3= new BresenhamLinePainter();
             BresenhamLinePainter Line4= new BresenhamLinePainter();
+
+
             List<Point> points = 
                 Line1.Draw(Start,new Point(End.X,Start.Y)).Points
                 .Concat(Line2.Draw(Start, new Point(Start.X,End.Y)).Points)

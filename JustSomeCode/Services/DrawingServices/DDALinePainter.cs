@@ -12,6 +12,7 @@ namespace JustSomeCode.Services.DrawingServices
         {
             List<Point> points = new List<Point>();
             DDA_Line dda_Line= new DDA_Line();
+
             int dx = End.X - Start.X , dy = End.Y - Start.Y ;
             int Distance = Math.Max(Math.Abs(dx), Math.Abs(dy));
             if (Distance > 0 )
