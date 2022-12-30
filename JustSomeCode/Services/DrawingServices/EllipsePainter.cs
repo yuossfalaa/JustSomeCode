@@ -15,7 +15,11 @@ namespace JustSomeCode.Services.DrawingServices
             Ellipse ellipse = new Ellipse();
             List<Point> points = new List<Point>();
 
-            double rx = End.X,ry = End.Y,xc = Start.X,yc = Start.Y;
+            double rx,ry,xc,yc;
+            xc = (Start.X + End.X) / 2;
+            yc = (Start.Y + End.Y) / 2;
+            rx = Math.Sqrt(Math.Pow(xc - Start.X, 2) + Math.Pow(Start.Y - Start.Y, 2));
+            ry = Math.Sqrt(Math.Pow(Start.X - Start.X, 2) + Math.Pow(Start.Y - yc, 2));
             double dx, dy, d1, d2, x, y;
             x = 0;
             y = ry;
@@ -26,13 +30,6 @@ namespace JustSomeCode.Services.DrawingServices
 
             while (dx < dy)
             {
-
-                points.Add(new Point((int)Math.Round(xc + x ), (int)Math.Round(yc + y )));
-                points.Add(new Point((int)Math.Round(xc - x ), (int)Math.Round(yc + y )));
-                points.Add(new Point((int)Math.Round(xc - x ), (int)Math.Round(yc - y )));
-                points.Add(new Point((int)Math.Round(xc + x ), (int)Math.Round(yc - y )));
-
-           
                 if (d1 < 0)
                 {
                     x++;
@@ -47,6 +44,14 @@ namespace JustSomeCode.Services.DrawingServices
                     dy = dy - (2 * rx * rx);
                     d1 = d1 + dx - dy + (ry * ry);
                 }
+
+                points.Add(new Point((int)Math.Round(xc + x ), (int)Math.Round(yc + y )));
+                points.Add(new Point((int)Math.Round(xc - x ), (int)Math.Round(yc + y )));
+                points.Add(new Point((int)Math.Round(xc - x ), (int)Math.Round(yc - y )));
+                points.Add(new Point((int)Math.Round(xc + x ), (int)Math.Round(yc - y )));
+
+               
+
             }
 
             d2 = ((ry * ry) * ((x + 0.5f) * (x + 0.5f)))
@@ -55,14 +60,6 @@ namespace JustSomeCode.Services.DrawingServices
 
             while (y >= 0)
             {
-
-
-
-                points.Add(new Point((int)Math.Round(xc + x ), (int)Math.Round(yc + y )));
-                points.Add(new Point((int)Math.Round(xc - x ), (int)Math.Round(yc + y )));
-                points.Add(new Point((int)Math.Round(xc - x ), (int)Math.Round( yc - y )));
-                points.Add(new Point((int)Math.Round(xc + x ), (int)Math.Round(yc - y )));
-
 
                 if (d2 > 0)
                 {
@@ -78,10 +75,18 @@ namespace JustSomeCode.Services.DrawingServices
                     dy = dy - (2 * rx * rx);
                     d2 = d2 + dx - dy + (rx * rx);
                 }
+
+                points.Add(new Point((int)Math.Round(xc + x ), (int)Math.Round(yc + y )));
+                points.Add(new Point((int)Math.Round(xc - x ), (int)Math.Round(yc + y )));
+                points.Add(new Point((int)Math.Round(xc - x ), (int)Math.Round( yc - y )));
+                points.Add(new Point((int)Math.Round(xc + x ), (int)Math.Round(yc - y )));
+
+
+                
             }
+            
 
-
-            ellipse.Points = points.OrderBy(x => Math.Atan2(x.X - Start.X, x.Y - Start.Y)).ToList();
+            ellipse.Points = points.OrderBy(x => Math.Atan2(x.X - xc, x.Y - yc)).ToList();
             return ellipse;
         }
     }
