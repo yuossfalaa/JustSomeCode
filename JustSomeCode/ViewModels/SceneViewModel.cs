@@ -23,6 +23,8 @@ namespace JustSomeCode.ViewModels
         public ICommand ModeChangeToRectangleCommand { get; private set; }
         public ICommand ModeChangeToDrawCommand { get; private set; }
         public ICommand ModeChangeToEraseCommand { get; private set; }
+        public ICommand RemoveLayerCommand { get; private set; }
+
         #endregion
 
         #region public properties
@@ -129,6 +131,7 @@ namespace JustSomeCode.ViewModels
             Mode = (int)ModeValues.Move;
 
             ModeChangeToDDALinePaintingCommand = new RelayCommand(prama => ModeChangeToDDALinePainting());
+            RemoveLayerCommand = new RelayCommand(param => Scene.RemoveSelectedLayer(), param => Scene.CanRemoveSelectedLayer());
             ModeChangeToMoveCommand = new RelayCommand(prama => ModeChangeToMove());
             ModeChangeToDrawCommand = new RelayCommand(prama => ModeChangeToDraw());
             ModeChangeToCircleCommand = new RelayCommand(prama => ModeChangeToCircle());
@@ -143,14 +146,20 @@ namespace JustSomeCode.ViewModels
         private void ModeChangeToRectangle()
         {
             Mode = (int)ModeValues.Rectangle;
+            Scene.CanAddLayer = true;
+
         }
         private void ModeChangeToEllipse()
         {
             Mode = (int)ModeValues.Ellipse;
+            Scene.CanAddLayer = true;
+
         }
         private void ModeChangeToBresenhamLinePainting()
         {
             Mode = (int)ModeValues.BresenhamLine;
+            Scene.CanAddLayer = true;
+
         }
         private void ModeChangeToErase()
         {
@@ -159,19 +168,25 @@ namespace JustSomeCode.ViewModels
         private void ModeChangeToCircle()
         {
             Mode = (int)ModeValues.Circle;
+            Scene.CanAddLayer = true;
+
         }
         private void ModeChangeToDraw()
         {
             Mode = (int)ModeValues.Draw;
+            Scene.CanAddLayer = true;
         }
 
         private void ModeChangeToDDALinePainting()
         {
             Mode = (int)ModeValues.DDALine;
+            Scene.CanAddLayer = true;
         }
         private void ModeChangeToMove()
         {
             Mode = (int)ModeValues.Move;
+            Scene.CanAddLayer = true;
+
         }
 
         private void _scene_LayersOrderChanged(object sender, EventArgs e)

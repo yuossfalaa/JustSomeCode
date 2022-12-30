@@ -35,6 +35,7 @@ namespace JustSomeCode.Models
 
         private bool _pressed;
         private bool _moved;
+        private bool IScountisone = true;
         private Point _lastPoint;
         private Point _startPoint;
         private Point _endPoint;
@@ -61,6 +62,8 @@ namespace JustSomeCode.Models
         #endregion
 
         #region public properties
+        public bool CanAddLayer { get; set; }
+
         public Color Color
         {
             get
@@ -173,6 +176,36 @@ namespace JustSomeCode.Models
             Invalidate();
             InvalidateLayersOrder();
         }
+        /// <summary>
+        /// Return true if layer can be deleted
+        /// </summary>
+        /// <returns></returns>
+        public bool CanRemoveSelectedLayer()
+        {
+            return SelectedLayerIndex !=-1;
+        }
+
+        /// <summary>
+        /// Remove selected layer from scene
+        /// </summary>
+        public void RemoveSelectedLayer()
+        {
+            if (HasNoLayers)
+                return;
+            SelectedLayer.Dispose();
+            Layers.RemoveAt(SelectedLayerIndex);
+            if (HasNoLayers)
+            {
+                AddNewLayer();
+                _selectedLayerIndex = 0;
+
+            }
+            else
+                _selectedLayerIndex = 0;
+
+            Invalidate();
+            InvalidateLayersOrder();
+        }
 
         /// <summary>
         /// Start user interaction logic, like MouseDown on control
@@ -180,6 +213,7 @@ namespace JustSomeCode.Models
         /// <param name="p">Start point</param>
         public void PressDown(Point p)
         {
+          
             if ((HasNoLayers)||(!SelectedLayer.IsVisible))
                 return;
 
@@ -187,12 +221,36 @@ namespace JustSomeCode.Models
             _lastPoint = p;
             if (Mode == 0 || Mode == 1 || Mode == 2|| Mode == 3 || Mode == 4 )
             {
+                if (CanAddLayer && !IScountisone)
+                {
+                    AddNewLayer();
+                    SelectedLayerIndex++;
+                }
+
+                if (Layers.Count == 1)
+                {
+                    CanAddLayer = true;
+                    IScountisone = false;
+                }
+               
                 CheckLayerPostionAndSize(new[] { new Point(p.X, p.Y) });
                 var normalized = p.Normalize(SelectedLayer.Position);
                 _startPoint = p;
             }
             else if (Mode == 5)
             {
+                if (CanAddLayer && Layers.Count != 1)
+                {
+                    AddNewLayer();
+                    SelectedLayerIndex++;
+                    CanAddLayer= false;
+
+                }
+
+                if (Layers.Count == 1)
+                {
+                    CanAddLayer = true;
+                }
                 CheckLayerPostionAndSize(new[] {new Point(p.X, p.Y)});
                 var normalized = p.Normalize(SelectedLayer.Position);
                 SelectedLayer.DrawPoint(_brush, Thickness, normalized);
@@ -273,6 +331,7 @@ namespace JustSomeCode.Models
                 {
                     SelectedLayer.DrawLines(_pen, painter.Draw(_startPoint, _endPoint).Points.Select(c => c.Normalize(SelectedLayer.Position)).ToArray());
                 }
+
             }
             else if (Mode == 1)
             {
@@ -284,6 +343,7 @@ namespace JustSomeCode.Models
                 {
                     SelectedLayer.DrawLines(_pen, painter.Draw(_startPoint, _endPoint).Points.Select(c => c.Normalize(SelectedLayer.Position)).ToArray());
                 }
+
             }
             else if (Mode == 2)
             {
@@ -298,6 +358,7 @@ namespace JustSomeCode.Models
                 {
                             SelectedLayer.DrawLines(_pen, points.Select(c => c.Normalize(SelectedLayer.Position)).ToArray());
                 }
+
             }      
             else if (Mode == 3)
             {
@@ -312,6 +373,7 @@ namespace JustSomeCode.Models
                 {
                     SelectedLayer.DrawLines(_pen, points.Select(c => c.Normalize(SelectedLayer.Position)).ToArray());
                 }
+
             }
             else if (Mode == 4)
             {
@@ -323,6 +385,7 @@ namespace JustSomeCode.Models
                 {
                     SelectedLayer.DrawLines(_pen, painter.Draw(_startPoint, _endPoint).Points.Select(c => c.Normalize(SelectedLayer.Position)).ToArray());
                 }
+
             }
             else if (Mode == 7)
             {
@@ -351,21 +414,6 @@ namespace JustSomeCode.Models
         #endregion
 
         #region private methods
-        /// <summary>
-        /// Add layers from bundles (Disabled For Now)
-        /// </summary>
-        /// <param name="layerBundles">Collection of layer bundles</param>
-        private void LayersFromBundle(IEnumerable<LayerBundle> layerBundles)
-        {
-            foreach (var layerBundle in layerBundles)
-            {
-                var layer = new Layer(layerBundle);
-                layer.LayerChanged += layer_LayerChanged;
-                Layers.Add(layer);
-            }
-            if (Layers.Count > 0)
-                SelectedLayerIndex = 0;
-        }
 
         /// <summary>
         /// Checks that drawed point or line in layer bounds, 
