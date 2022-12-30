@@ -82,7 +82,7 @@
                 </materialDesign:TransitioningContent>
 
             </Grid>
-            
+
             <materialDesign:TransitioningContent>
                 <materialDesign:TransitioningContent.OpeningEffects>
                     <materialDesign:TransitionEffect Kind="FadeIn" Duration="00:00:00:1.5"/>
@@ -98,7 +98,7 @@
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    
+
                     <StackPanel Grid.Row="0" Grid.Column="1"  
                     Height="30" Background="{x:Null}" 
                     Orientation="Horizontal" 
@@ -121,10 +121,43 @@
                             Width="30" Height="30" Margin="10,0,0,0" Click="Minimize">
                             <materialDesign:PackIcon Kind="WindowMinimize" />
                         </Button>
+                        <Grid Margin="150,3,0,0"  Width="60" Height="22">
+                            <Border   Background="White" Opacity="0.8" CornerRadius="3" />
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                <Label FontSize="10" 
+                                   VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+                                    <Binding Path="SceneViewModel.Scene.MousePosition.Y">
+                                        <Binding.StringFormat>
+                                            {0}
+                                        </Binding.StringFormat>
+                                    </Binding>
+                                </Label>
+                                <Label FontSize="10"  Content="= Y" 
+                                   VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                            </StackPanel>
+
+                        </Grid>
+                        <Grid Margin="20,3,0,0"  Width="60" Height="22">
+                            <Border   Background="White" Opacity="0.8" CornerRadius="3" />
+                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                                <Label FontSize="10" 
+                                   VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+                                    <Binding Path="SceneViewModel.Scene.MousePosition.X">
+                                        <Binding.StringFormat>
+                                            {0}
+                                        </Binding.StringFormat>
+                                    </Binding>
+                                </Label>
+                                <Label FontSize="10"  Content="= X" 
+                                   VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                            </StackPanel>
+
+                        </Grid>
+
                     </StackPanel>
                     <StackPanel Grid.Row="1" Grid.Column="0" 
                                 Width="40" Background="{x:Null}" >
-                  
+
                         <materialDesign:PopupBox
                                 Style="{StaticResource MaterialDesignMultiFloatingActionLightPopupBox}"
                                 Background="{x:Null}"
@@ -153,6 +186,13 @@
                         <Button
                             Style="{StaticResource MaterialDesignIconButton}" 
                             Foreground="{StaticResource PrimaryHueLightForegroundBrush}" 
+                            Command="{Binding Path=SceneViewModel.ModeChangeToRectangleCommand }"
+                            Width="30" Height="30" Margin="8,10,0,0">
+                            <materialDesign:PackIcon Kind="VectorRectangle" />
+                        </Button>
+                        <Button
+                            Style="{StaticResource MaterialDesignIconButton}" 
+                            Foreground="{StaticResource PrimaryHueLightForegroundBrush}" 
                             Command="{Binding Path=SceneViewModel.ModeChangeToCircleCommand}"
                             Width="30" Height="30" Margin="8,10,0,0">
                             <materialDesign:PackIcon Kind="VectorCircleVariant" />
@@ -163,13 +203,6 @@
                             Command="{Binding Path=SceneViewModel.ModeChangeToEllipseCommand}"
                             Width="30" Height="30" Margin="8,10,0,0">
                             <materialDesign:PackIcon Kind="EllipseOutline" />
-                        </Button>
-                        <Button
-                            Style="{StaticResource MaterialDesignIconButton}" 
-                            Foreground="{StaticResource PrimaryHueLightForegroundBrush}" 
-                            Command="{Binding Path=SceneViewModel.ModeChangeToRectangleCommand }"
-                            Width="30" Height="30" Margin="8,10,0,0">
-                            <materialDesign:PackIcon Kind="VectorRectangle" />
                         </Button>
                         <Button
                             Style="{StaticResource MaterialDesignIconButton}" 
@@ -206,7 +239,7 @@
                                 Style="{StaticResource DefaultColorPickerStyle}" 
                                 Width="30" Height="30"  />
                         </Border>
-                        
+
 
                     </StackPanel>
                     <StackPanel Grid.Row="2" Grid.Column="0" Width="40" Background="{x:Null}" >
@@ -220,15 +253,36 @@
                         </Button>
                     </StackPanel>
                     <Grid Grid.Column="1" Grid.Row="1" Grid.RowSpan="2">
-                        <materialDesign:TransitioningContent 
-                            OpeningEffect="{materialDesign:TransitionEffect Kind=FadeIn}">
-                            <controls:DrawControl Margin="80,40,40,40"  Cursor="Resources/MouseIcons/Arrow.cur" ActualSize="{Binding Path=VisibleSize,Mode=OneWayToSource}" Scene="{ Binding Path=SceneViewModel.Scene}"/>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="21*"/>
+                            <ColumnDefinition Width="2.7*"/>
+                        </Grid.ColumnDefinitions>
+                        <Border Background="{StaticResource BorderBruch}" Grid.Column="1" CornerRadius="0,15,15,0" Margin="0,100,10,100" BorderBrush="{StaticResource BorderBruchBlack}" BorderThickness="0.4">
+                            
+                            <ListView  BorderThickness="0" HorizontalAlignment="Stretch" SelectionMode="Single" VerticalAlignment="Stretch"  SelectedIndex="{Binding Path=SceneViewModel.SelectedLayerIndex, Mode=TwoWay}"  SelectedItem="{Binding SceneViewModel.SelectedLayerViewModel,Mode=OneWay}" ItemsSource="{Binding Path=SceneViewModel.Layers}"  >
+                                <ListView.ItemTemplate >
+                                    <DataTemplate >
+                                        <StackPanel Orientation="Horizontal" >
+                                            <Border BorderBrush="{StaticResource BorderBruchBlack}" BorderThickness="1" CornerRadius="10">
+                                                <Image Source="{Binding Image, Mode=OneWay}"   HorizontalAlignment="Left"  Name="img"  Width="50" Height="50" />
+                                            </Border>
+                                            <CheckBox  Content="{Binding Name}" FontSize="12"  Margin="5,0,0,0" VerticalAlignment="Center"  IsChecked="{Binding IsVisible}"></CheckBox>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </Border>
+                       
+
+                        <materialDesign:TransitioningContent Grid.Column="0"
+                            OpeningEffect="{materialDesign:TransitionEffect Kind=FadeIn}" >
+                            <controls:DrawControl Margin="40,40,0,40" Cursor="Resources/MouseIcons/Arrow.cur" ActualSize="{Binding Path=VisibleSize,Mode=OneWayToSource}" Scene="{ Binding Path=SceneViewModel.Scene}"/>
                         </materialDesign:TransitioningContent>
                     </Grid>
 
                 </Grid>
             </materialDesign:TransitioningContent>
         </Grid>
-        
+
     </Grid>
 </Window>

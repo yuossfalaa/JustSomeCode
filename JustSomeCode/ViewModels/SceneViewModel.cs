@@ -59,7 +59,7 @@ namespace JustSomeCode.ViewModels
             }
         }
 
-
+      
         //Gets or sets color for scene brush
         public Color Color
         {
@@ -101,7 +101,7 @@ namespace JustSomeCode.ViewModels
             }
         }
 
-    
+
         public Scene Scene
         {
             get { return _scene; }
@@ -118,9 +118,8 @@ namespace JustSomeCode.ViewModels
                 RaisePropertyChanged("Scene");
             }
         }
-
-
         #endregion
+
         #region Constructor
         public SceneViewModel(Scene scene)
         {

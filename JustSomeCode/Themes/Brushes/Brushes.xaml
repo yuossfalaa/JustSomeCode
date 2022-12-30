@@ -20,5 +20,8 @@
 
                    <SolidColorBrush x:Key="SecondaryHueDarkBrush" Color="#1b1c20"/>
                    <SolidColorBrush x:Key="SecondaryHueDarkForegroundBrush" Color="White"/>
-    
+
+    <SolidColorBrush x:Key="BorderBruch" Color="White" Opacity="0.90"/>
+    <SolidColorBrush x:Key="BorderBruchBlack" Color="Black" Opacity="0.2"/>
+
 </ResourceDictionary>
