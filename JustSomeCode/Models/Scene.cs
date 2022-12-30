@@ -11,11 +11,12 @@ using Pen = System.Drawing.Pen;
 using PixelFormat = System.Drawing.Imaging.PixelFormat;
 using Point = System.Drawing.Point;
 using JustSomeCode.Services.DrawingServices;
+using MVVM;
 
 namespace JustSomeCode.Models
 {
     // Scene manage layer logic. 
-    public class Scene:IDisposable
+    public class Scene: ViewModelBase, IDisposable
     {
         #region constructor
         public Scene()
@@ -37,6 +38,7 @@ namespace JustSomeCode.Models
         private Point _lastPoint;
         private Point _startPoint;
         private Point _endPoint;
+        private Point _mouseposition;
         private int _selectedLayerIndex;
         private List<Point> _points;
         private Pen _pen;
@@ -70,6 +72,11 @@ namespace JustSomeCode.Models
                 _color = value;
                 InvalidateBrushAndPen();
             }
+        }
+        public Point MousePosition
+        {
+            get { return _mouseposition; }
+            set { _mouseposition= value; RaisePropertyChanged("MousePosition"); }
         }
         public int Thickness
         {
@@ -205,13 +212,20 @@ namespace JustSomeCode.Models
         }
 
         /// <summary>
-        /// Draw line or move layer (depends on pan mode)
+        /// Draw line or move layer (depends on mode)
         /// </summary>
         /// <param name="p">Point to move</param>
         public void Move(Point p)
         {
+            MousePosition = p;
+
             if ((((HasNoLayers) | (!_pressed))) || (!SelectedLayer.IsVisible))
+            {
                 return;
+            }
+
+           
+
             if (Mode == 0 || Mode == 1|| Mode == 2||Mode == 3 || Mode == 4)
             {
                 _moved = true;
