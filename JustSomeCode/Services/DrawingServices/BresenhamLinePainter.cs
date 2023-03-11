@@ -19,7 +19,7 @@ namespace JustSomeCode.Services.DrawingServices
             List<Point> points = new List<Point>();
 
             //Modified algorithm for all Cases
-            //https://stackoverflow.com/a/11683720/14600826
+            //http://tech-algorithm.com/articles/drawing-line-using-bresenham-algorithm/
 
             int x = Start.X;
             int y = Start.Y;
@@ -38,6 +38,8 @@ namespace JustSomeCode.Services.DrawingServices
                 if (h < 0) dy2 = -1; else if (h > 0) dy2 = 1;
                 dx2 = 0;
             }
+            //Notice the line numerator = longest >> 1 :  Technically it means numerator is equal to half of longest,
+            //and is important to avoid y from being rounded at every whole number instead of halfway point.
             int numerator = longest >> 1;
             for (int i = 0; i <= longest; i++)
             {
@@ -66,8 +68,8 @@ namespace JustSomeCode.Services.DrawingServices
 //Old Algorithm
 //Work Only in Certain Cases
 
-//int m_new = 2 * (End.Y - Start.Y);
-//int slope_error_new = m_new - (End.X - Start.X);
+//int m_new = 2 * (End.Y - Start.Y); // dy
+//int slope_error_new = m_new - (End.X - Start.X); // 2dy-dx
 //for (int x = Start.X, y = Start.Y; x <= End.X; x++)
 //{
 //    points.Add(new Point(x, y));
@@ -76,6 +78,5 @@ namespace JustSomeCode.Services.DrawingServices
 //    {
 //        y++;
 //        slope_error_new -= 2 * (End.X - Start.X);
-
 //    }
 //}
