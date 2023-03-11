@@ -263,7 +263,7 @@
                         </Grid.ColumnDefinitions>
                         <materialDesign:TransitioningContent Grid.Column="1"
                             OpeningEffect="{materialDesign:TransitionEffect Kind=FadeIn}" >
-                            <Border Background="{StaticResource BorderBruch}" Grid.Column="1" CornerRadius="0,15,15,0" Margin="0,100,10,100" BorderBrush="{StaticResource BorderBruchBlack}" BorderThickness="0.4">
+                            <Border Background="{StaticResource BorderBruch}" Cursor="Resources/MouseIcons/Arrow.cur" Grid.Column="1" CornerRadius="0,15,15,0" Margin="0,100,10,100" BorderBrush="{StaticResource BorderBruchBlack}" BorderThickness="0.4">
                                 <ListView  BorderThickness="0" HorizontalAlignment="Stretch" SelectionMode="Single" VerticalAlignment="Stretch"  SelectedIndex="{Binding Path=SceneViewModel.SelectedLayerIndex, Mode=TwoWay}"  SelectedItem="{Binding SceneViewModel.SelectedLayerViewModel,Mode=OneWay}" ItemsSource="{Binding Path=SceneViewModel.Layers}"  >
                                     <ListView.ItemTemplate >
                                         <DataTemplate >
