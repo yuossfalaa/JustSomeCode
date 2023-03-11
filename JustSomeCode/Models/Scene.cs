@@ -110,6 +110,8 @@ namespace JustSomeCode.Models
                     throw new ArgumentOutOfRangeException("SelectedLayerIndex must be < layers array count");
 
                 _selectedLayerIndex = value;
+                RaisePropertyChanged("SelectedLayerIndex");
+                RaisePropertyChanged("SelectedLayerViewModel");
             }
         }
         public List<Layer> Layers { get; private set; }
@@ -198,6 +200,7 @@ namespace JustSomeCode.Models
             {
                 AddNewLayer();
                 _selectedLayerIndex = 0;
+                IScountisone = true;
 
             }
             else
