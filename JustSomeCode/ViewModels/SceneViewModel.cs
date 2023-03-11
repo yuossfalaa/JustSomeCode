@@ -59,6 +59,7 @@ namespace JustSomeCode.ViewModels
             {
                 return Layers[SelectedLayerIndex];
             }
+            
         }
 
       
