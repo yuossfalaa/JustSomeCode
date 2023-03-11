@@ -72,7 +72,6 @@ namespace JustSomeCode.Controls
         }
 
         #region protected methods
-
         protected override void OnMouseDown(MouseButtonEventArgs e)
         {
             base.OnMouseDown(e);
