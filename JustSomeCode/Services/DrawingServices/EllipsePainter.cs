@@ -14,13 +14,15 @@ namespace JustSomeCode.Services.DrawingServices
         {
             Ellipse ellipse = new Ellipse();
             List<Point> points = new List<Point>();
-
             double rx,ry,xc,yc;
+            double dx, dy, d1, d2, x, y;
+
             xc = (Start.X + End.X) / 2;
             yc = (Start.Y + End.Y) / 2;
+
             rx = Math.Sqrt(Math.Pow(xc - Start.X, 2) + Math.Pow(Start.Y - Start.Y, 2));
             ry = Math.Sqrt(Math.Pow(Start.X - Start.X, 2) + Math.Pow(Start.Y - yc, 2));
-            double dx, dy, d1, d2, x, y;
+
             x = 0;
             y = ry;
 
